@@ -1,3 +1,7 @@
+const isPlacable = function(square){
+
+}
+
 state = {
   // GamePhase: {
   //   StartingGame:
@@ -17,6 +21,7 @@ state = {
     p1missSquares: [],
     p2hitSquares: [],
     p2missSquares: [],
+    freeSquares: [],
     ships: {
       p1: {},
       p2: {}
@@ -42,6 +47,19 @@ state = {
     // gamePhase: ? (str or num)
     // currentShipOrientation(for placement phase): num (0 - 4)
   },
+  // findShipsOccupiedSquares(clickedSquare){
+  //   const occupiedSquares = [clickedSquare];
+  //   for(let i = 1; i < this.shipLengths[ship]; i++){
+  //     if(this.placingPhase.shipOrientation == 0)
+  //       occupiedSquares.push([clickedSquare[0] - i, clickedSquare[0]])
+  //     if(this.placingPhase.shipOrientation == 1)
+  //       return clickedSquare[1] + this.shipLengths[ship] > 9 ? false : true;
+  //     if(this.placingPhase.shipOrientation == 2)
+  //       return clickedSquare[0] + this.shipLengths[ship] > 9 ? false : true;
+  //     if(this.placingPhase.shipOrientation == 3)
+  //       return clickedSquare[1] - this.shipLengths[ship] < 0 ? false : true;
+  //   }
+  // },
   onBoard: function(clickedSquare){
     const ship = this.placingPhase.selectedShip;
     if(this.placingPhase.shipOrientation == 0)
@@ -68,9 +86,38 @@ state = {
           playersShip.push([clickedSquare[0], clickedSquare[1] - i]);
       }
     }
+  },
+  generateBoard: function(){
+    let board = [];
+    for(let i = 0; i < 10; i++){
+      for(let j = 0; j < 10; j++){
+        board.push([i,j]);
+     }  
+    }
+    return board;
   }
 }
-//assume clickedSquare is an array [i,j]
+
+// console.log(state.generateBoard())
+
+const printBoard = () => {
+  for(let i = 0; i < 10; i ++){
+    let row = '';
+    for(let j = 0; j < 10; j++){
+      let values = Object.values(state.board.ships['p1']);
+      values.forEach(value => {
+        if (value.filter(array => array[0] == i && array[1] == j).length > 0){
+          row += '[X]';
+        } else {
+          row += '[ ]';
+        }
+      });
+    }
+    console.log(row);
+  }
+}
+
+console.log(printBoard());
 
 
 module.exports = state;
