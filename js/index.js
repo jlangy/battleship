@@ -28,9 +28,9 @@ state = {
     }
   },
   placingPhase: {
-    selectedShip: 'destroyer',
+    selectedShip: 'battleship',
     //0 north, 1 east, etc.
-    shipOrientation: 3
+    shipOrientation: 1
   },
   shipLengths: {
     carrier: 5,
@@ -47,19 +47,19 @@ state = {
     // gamePhase: ? (str or num)
     // currentShipOrientation(for placement phase): num (0 - 4)
   },
-  // findShipsOccupiedSquares(clickedSquare){
-  //   const occupiedSquares = [clickedSquare];
-  //   for(let i = 1; i < this.shipLengths[ship]; i++){
-  //     if(this.placingPhase.shipOrientation == 0)
-  //       occupiedSquares.push([clickedSquare[0] - i, clickedSquare[0]])
-  //     if(this.placingPhase.shipOrientation == 1)
-  //       return clickedSquare[1] + this.shipLengths[ship] > 9 ? false : true;
-  //     if(this.placingPhase.shipOrientation == 2)
-  //       return clickedSquare[0] + this.shipLengths[ship] > 9 ? false : true;
-  //     if(this.placingPhase.shipOrientation == 3)
-  //       return clickedSquare[1] - this.shipLengths[ship] < 0 ? false : true;
-  //   }
-  // },
+  findShipsOccupiedSquares(clickedSquare){
+    const occupiedSquares = [clickedSquare];
+    for(let i = 1; i < this.shipLengths[this.placingPhase.selectedShip]; i++){
+      if(this.placingPhase.shipOrientation == 0)
+        occupiedSquares.push([clickedSquare[0] - i, clickedSquare[1]])
+      if(this.placingPhase.shipOrientation == 1)
+        occupiedSquares.push([clickedSquare[0], clickedSquare[1] + i]);
+      if(this.placingPhase.shipOrientation == 2)
+        occupiedSquares.push([clickedSquare[0] + i, clickedSquare[1]]);
+      if(this.placingPhase.shipOrientation == 3)
+        occupiedSquares.push([clickedSquare[0], clickedSquare[1] - i]);
+    } return occupiedSquares;
+  },
   onBoard: function(clickedSquare){
     const ship = this.placingPhase.selectedShip;
     if(this.placingPhase.shipOrientation == 0)
@@ -97,7 +97,8 @@ state = {
     return board;
   }
 }
-
+state.placeShip([3,8]);
+console.log(state.findShipsOccupiedSquares([3,8]))
 // console.log(state.generateBoard())
 
 const printBoard = () => {
@@ -116,8 +117,6 @@ const printBoard = () => {
     console.log(row);
   }
 }
-
-console.log(printBoard());
 
 
 module.exports = state;
