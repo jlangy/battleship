@@ -1,0 +1,62 @@
+build out elements
+
+add functionality with document.ready.... onClick
+
+So, need to figure out UI and click functions. 
+
+Keep state in external object?
+
+State = {
+  GamePhase: {
+    StartingGame:
+      display options (vs AI, difficulty, colour, etc.)
+    Placing ships:
+      display ship selector, allow placement etc.
+    P1 turn:
+      click on square
+    P2 turn (possibly AI)
+      Choose square, play square
+    Game end:
+      static display screen, activate start button.
+  }
+  Board: {
+    p1hitSquares: [...],
+    p1missSquares: [...],
+    p2hitSquares: [...],
+    p2missSquares: [...],
+    p1Ships: {destroyer: [...], etc.}
+    p2Ships: {destroyer: [...], etc.}
+  }
+  GamePlay: {
+    p1Turn: bool,
+    p1Placing: bool,
+    p2Placing: bool,
+    p2Turn: bool,
+    gamePhase: ? (str or num)
+    currentShipOrientation(for placement phase): num (0 - 4)
+  }
+}
+
+States:
+  StratingGame:
+    funcs:
+    -displayStartButtons (pull up interface for phase)
+    -onClicks for difficulty btns, AI vs human, colour?, start
+  
+  PlacingShips:
+    -displayPlaceButtons (pull up interface for phase)
+    -onClicks for each ship type
+    -onKeyPress to reorient ships
+
+  P1 turn:
+    functions:
+    -clickSquare
+      -isClickable(square) (not already a hit/miss)
+        -isHit(square)
+          -drawHit(square)
+            -sunkShip(square)
+              -isEliminated(board.p1ships)
+          -drawMiss(square)
+
+
+        

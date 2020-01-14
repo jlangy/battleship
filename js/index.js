@@ -40,9 +40,15 @@ state = {
     // currentShipOrientation(for placement phase): num (0 - 4)
   },
   onBoard: function(clickedSquare){
-    if(this.placingPhase.shipOrientation == 0){
-      
-    }
+    const ship = this.placingPhase.selectedShip;
+    if(this.placingPhase.shipOrientation == 0)
+      return clickedSquare[0] - this.shipLengths[ship] < 0 ? false : true;
+    if(this.placingPhase.shipOrientation == 1)
+      return clickedSquare[1] + this.shipLengths[ship] > 9 ? false : true;
+    if(this.placingPhase.shipOrientation == 2)
+      return clickedSquare[0] + this.shipLengths[ship] > 9 ? false : true;
+    if(this.placingPhase.shipOrientation == 3)
+      return clickedSquare[1] - this.shipLengths[ship] < 0 ? false : true;
   }
 }
 //assume clickedSquare is an array [i,j]
