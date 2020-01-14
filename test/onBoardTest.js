@@ -1,7 +1,5 @@
 const assert = require('chai').assert;
 const game = require('../js/index');
-const playerBoard = game.playerBoard;
-console.log(game.placingPhase);
 
 describe('onBoard', () => {
   describe('placing with north orientation', () => {
