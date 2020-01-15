@@ -1,7 +1,3 @@
-const isPlacable = function(square){
-
-}
-
 state = {
   // GamePhase: {
   //   StartingGame:
@@ -60,33 +56,6 @@ state = {
         occupiedSquares.push([clickedSquare[0], clickedSquare[1] - i]);
     } return occupiedSquares;
   },
-  onBoard: function(clickedSquare){
-    const ship = this.placingPhase.selectedShip;
-    if(this.placingPhase.shipOrientation == 0)
-      return clickedSquare[0] - this.shipLengths[ship] < 0 ? false : true;
-    if(this.placingPhase.shipOrientation == 1)
-      return clickedSquare[1] + this.shipLengths[ship] > 9 ? false : true;
-    if(this.placingPhase.shipOrientation == 2)
-      return clickedSquare[0] + this.shipLengths[ship] > 9 ? false : true;
-    if(this.placingPhase.shipOrientation == 3)
-      return clickedSquare[1] - this.shipLengths[ship] < 0 ? false : true;
-  },
-  placeShip: function(clickedSquare) {
-    const ship = this.placingPhase.selectedShip;
-    if(this.onBoard(clickedSquare)){
-      const playersShip = this.board.ships[this.currentPlayer][ship] = [clickedSquare];
-      for(let i = 1; i < this.shipLengths[ship]; i++){
-        if (this.placingPhase.shipOrientation == 0)
-          playersShip.push([clickedSquare[0] - i, clickedSquare[1]]);
-        if (this.placingPhase.shipOrientation == 1)
-          playersShip.push([clickedSquare[0], clickedSquare[1] + i]);
-        if (this.placingPhase.shipOrientation == 2)
-          playersShip.push([clickedSquare[0] + i, clickedSquare[1]]);
-        if (this.placingPhase.shipOrientation == 3)
-          playersShip.push([clickedSquare[0], clickedSquare[1] - i]);
-      }
-    }
-  },
   generateBoard: function(){
     let board = [];
     for(let i = 0; i < 10; i++){
@@ -97,9 +66,27 @@ state = {
     return board;
   }
 }
-state.placeShip([3,8]);
-console.log(state.findShipsOccupiedSquares([3,8]))
-// console.log(state.generateBoard())
+
+const hasSquare = function(squaresArray, squareToFind){
+  if(squaresArray.filter(square => square[0] === squareToFind[0] && square[1] === squareToFind[1]).length > 0)
+    return true;
+  return false;
+}
+
+const isPlacable = function(square){
+  const board = state.generateBoard();
+  const occupiedSquares = state.findShipsOccupiedSquares(square);
+  // console.log(board, occupiedSquares);
+  for(shipSquare of occupiedSquares) {
+    if(!hasSquare(board, shipSquare))
+      return false;
+  }
+  return true;
+}
+
+
+
+console.log(isPlacable([1,7]));
 
 const printBoard = () => {
   for(let i = 0; i < 10; i ++){
@@ -119,5 +106,5 @@ const printBoard = () => {
 }
 
 
-module.exports = state;
+module.exports = hasSquare;
 
