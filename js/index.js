@@ -19,14 +19,14 @@ state = {
     p2missSquares: [],
     freeSquares: [],
     ships: {
-      p1: {},
+      p1: {'destroyer': [[1,1],[1,2]], 'battleship': [[3,3],[4,3],[5,3],[6,3]]},
       p2: {}
     }
   },
   placingPhase: {
-    selectedShip: 'battleship',
+    selectedShip: 'submarine',
     //0 north, 1 east, etc.
-    shipOrientation: 1
+    shipOrientation: 0
   },
   shipLengths: {
     carrier: 5,
@@ -88,32 +88,34 @@ const place = function(square){
     const shipSquares = state.findShipsOccupiedSquares(square);
     state.board.ships[currentPlayer][shipName] = shipSquares;
     for(shipSquare of shipSquares){
-      board = board.filter(boardSquare => !hasSquare(board, shipSquare))
+      board = board.filter(boardSquare => !equalSquares(boardSquare, shipSquare));
     }
   } // TODO: Else logic 
 }
 
+place([6,9]);
+place([8,9]);
 
 
-console.log(isPlacable([1,8]));
-
-const printBoard = () => {
+const printBoard = (player) => {
+  let playerShips = Object.keys(player);
+  let takenSquares = [];
+  for(ship of playerShips){
+    takenSquares = takenSquares.concat(player[ship]);
+  }
   for(let i = 0; i < 10; i ++){
     let row = '';
-    for(let j = 0; j < 10; j++){
-      let values = Object.values(state.board.ships['p1']);
-      values.forEach(value => {
-        if (value.filter(array => array[0] == i && array[1] == j).length > 0){
-          row += '[X]';
-        } else {
-          row += '[ ]';
-        }
-      });
-    }
+    for(let j = 0; j < 10; j++){   
+      if(takenSquares.some(square => square[0] === i && square[1] === j))
+        row += '[X]';
+      else
+        row += '[ ]'; 
+    } 
     console.log(row);
   }
 }
 
+printBoard(state.board.ships['p1']);
 
 module.exports = hasSquare;
 
