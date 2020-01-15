@@ -66,27 +66,36 @@ state = {
     return board;
   }
 }
+let board = state.generateBoard();
+
+const equalSquares = (square1, square2) => square1[0] === square2[0] && square1[1] === square2[1];
 
 const hasSquare = function(squaresArray, squareToFind){
-  if(squaresArray.filter(square => square[0] === squareToFind[0] && square[1] === squareToFind[1]).length > 0)
+  if(squaresArray.some(square => equalSquares(square, squareToFind)))
     return true;
   return false;
 }
 
 const isPlacable = function(square){
-  const board = state.generateBoard();
   const occupiedSquares = state.findShipsOccupiedSquares(square);
-  // console.log(board, occupiedSquares);
-  for(shipSquare of occupiedSquares) {
-    if(!hasSquare(board, shipSquare))
-      return false;
-  }
-  return true;
+  return occupiedSquares.every(square => hasSquare(board, square));
+}
+
+const place = function(square){
+  if(isPlacable(square)){
+    const currentPlayer = state.currentPlayer;
+    const shipName = state.placingPhase.selectedShip;
+    const shipSquares = state.findShipsOccupiedSquares(square);
+    state.board.ships[currentPlayer][shipName] = shipSquares;
+    for(shipSquare of shipSquares){
+      board = board.filter(boardSquare => !hasSquare(board, shipSquare))
+    }
+  } // TODO: Else logic 
 }
 
 
 
-console.log(isPlacable([1,7]));
+console.log(isPlacable([1,8]));
 
 const printBoard = () => {
   for(let i = 0; i < 10; i ++){
