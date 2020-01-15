@@ -13,6 +13,7 @@ state = {
   selectedShip: 'destroyer',
   shipOrientation: 0,
   board: generateBoard(),
+  //Board with players ships on it. Therefore has to have opponents hits on it
   p1Board: {
     hitSquares: [],
     missSquares: [],
@@ -26,6 +27,7 @@ state = {
 }
 
 const shootSquare = function(square){
+  //Checking if on board should be unneccessary since it will be called via click listener
   const playerBoardKey = state.p1Turn ? "p1Board": "p2Board";
   if(hasSquare(state[playerBoardKey].hitSquares, square) || hasSquare(state[playerBoardKey].missSquares, square)){
     return;
@@ -33,9 +35,15 @@ const shootSquare = function(square){
   }
   const opponentBoardKey = state.p1Turn ? "p2Board" : "p1Board";
   const opponentShipSquares = getPlayerSquares(state[opponentBoardKey].ships);
-  //if matches a ship, add to player hits
-    //if sunk ship remove ship
-  //if miss, add to player misses
+  if(hasSquare(opponentShipSquares, square)){
+    state[opponentBoardKey].hitSquares.push(square);
+    checkSunk(opponentBoardKey);
+  } else {
+    state[opponentBoardKey].missSquares.push(square);
+  }   
 }
 
-shootSquare();
+shootSquare([1,4]);
+shootSquare([1,5]);
+shootSquare
+console.log(state['p1Board'].missSquares)

@@ -6,8 +6,8 @@ hasSquare = function(squaresArray, squareToFind){
     return true;
   return false;
 }
+//returns all squares a player has ships on
 getPlayerSquares = function(player){
-  console.log(player);
   let playerShips = Object.keys(player);
   let takenSquares = [];
   for(ship of playerShips){
