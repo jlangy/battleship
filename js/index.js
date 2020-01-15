@@ -96,13 +96,18 @@ const place = function(square){
 place([6,9]);
 place([8,9]);
 
-
-const printBoard = (player) => {
+const getPlayerSquares = function(player){
   let playerShips = Object.keys(player);
   let takenSquares = [];
   for(ship of playerShips){
     takenSquares = takenSquares.concat(player[ship]);
   }
+  return takenSquares;
+}
+
+
+const printBoard = (player) => {
+  const takenSquares = getPlayerSquares(player);
   for(let i = 0; i < 10; i ++){
     let row = '';
     for(let j = 0; j < 10; j++){   
