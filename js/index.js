@@ -20,7 +20,7 @@ state = {
     ships: {'destroyer': [[1,1],[1,2]], 'battleship': [[5,3],[5,4],[5,5],[5,6]]}
   },
   p2Board: {
-    hitSquares: [],
+    hitSquares: [[1,1],[1,2], [3,3]],
     missSquares: [],
     ships: {'destroyer': [[1,1],[1,2]], 'battleship': [[3,3],[4,3],[5,3],[6,3]]}
   }
@@ -37,13 +37,25 @@ const shootSquare = function(square){
   const opponentShipSquares = getPlayerSquares(state[opponentBoardKey].ships);
   if(hasSquare(opponentShipSquares, square)){
     state[opponentBoardKey].hitSquares.push(square);
-    checkSunk(opponentBoardKey);
+    // checkSunk(opponentBoardKey);
   } else {
     state[opponentBoardKey].missSquares.push(square);
   }   
 }
 
-shootSquare([1,4]);
-shootSquare([1,5]);
-shootSquare
-console.log(state['p1Board'].missSquares)
+const checkSunk = function(playerBoardKey){
+  //go through hit squares in player board
+  const hitSquares = state[playerBoardKey].hitSquares;
+  console.log(hitSquares);
+  const playerShips = state[playerBoardKey].ships;
+  const playerShipKeys = Object.keys(playerShips);
+  for(shipKey of playerShipKeys){
+    if(playerShips[shipKey].every(square => hasSquare(hitSquares, square))){
+      console.log(`You sunk the ship ${shipKey}`);
+      delete playerShips[shipKey];
+    }
+  }
+}
+console.log(state.p2Board.ships);
+checkSunk('p2Board');
+console.log(state.p2Board.ships);
