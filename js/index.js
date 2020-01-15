@@ -20,20 +20,8 @@ state = {
     freeSquares: [],
     ships: {
       p1: {'destroyer': [[1,1],[1,2]], 'battleship': [[3,3],[4,3],[5,3],[6,3]]},
-      p2: {}
+      p2: {'destroyer': [[4,1],[4,2]], 'battleship': [[3,6],[3,5],[3,4],[3,3]]}
     }
-  },
-  placingPhase: {
-    selectedShip: 'submarine',
-    //0 north, 1 east, etc.
-    shipOrientation: 0
-  },
-  shipLengths: {
-    carrier: 5,
-    battleship: 4,
-    cruiser: 3,
-    submarine: 3,
-    destroyer: 2
   },
   GamePlay: {
     // p1Turn: bool,
@@ -43,19 +31,40 @@ state = {
     // gamePhase: ? (str or num)
     // currentShipOrientation(for placement phase): num (0 - 4)
   },
-  findShipsOccupiedSquares(clickedSquare){
-    const occupiedSquares = [clickedSquare];
-    for(let i = 1; i < this.shipLengths[this.placingPhase.selectedShip]; i++){
-      if(this.placingPhase.shipOrientation == 0)
-        occupiedSquares.push([clickedSquare[0] - i, clickedSquare[1]])
-      if(this.placingPhase.shipOrientation == 1)
-        occupiedSquares.push([clickedSquare[0], clickedSquare[1] + i]);
-      if(this.placingPhase.shipOrientation == 2)
-        occupiedSquares.push([clickedSquare[0] + i, clickedSquare[1]]);
-      if(this.placingPhase.shipOrientation == 3)
-        occupiedSquares.push([clickedSquare[0], clickedSquare[1] - i]);
-    } return occupiedSquares;
+  helpers: {
+    equalSquares: function(square1, square2){
+      return square1[0] === square2[0] && square1[1] === square2[1];
+    },
+    hasSquare: function(squaresArray, squareToFind){
+      if(squaresArray.some(square => this.equalSquares(square, squareToFind)))
+        return true;
+      return false;
+    },
+    getPlayerSquares: function(player){
+      console.log(player);
+      let playerShips = Object.keys(player);
+      let takenSquares = [];
+      for(ship of playerShips){
+        takenSquares = takenSquares.concat(player[ship]);
+      }
+      return takenSquares;
+    },
+    printBoard: function(player){
+      const takenSquares = this.getPlayerSquares(player);
+      for(let i = 0; i < 10; i ++){
+        let row = '';
+        for(let j = 0; j < 10; j++){   
+          if(takenSquares.some(square => square[0] === i && square[1] === j))
+            row += '[X]';
+          else
+            row += '[ ]'; 
+        } 
+        console.log(row);
+      }
+    }
+
   },
+
   generateBoard: function(){
     let board = [];
     for(let i = 0; i < 10; i++){
@@ -66,61 +75,6 @@ state = {
     return board;
   }
 }
-let board = state.generateBoard();
 
-const equalSquares = (square1, square2) => square1[0] === square2[0] && square1[1] === square2[1];
-
-const hasSquare = function(squaresArray, squareToFind){
-  if(squaresArray.some(square => equalSquares(square, squareToFind)))
-    return true;
-  return false;
-}
-
-const isPlacable = function(square){
-  const occupiedSquares = state.findShipsOccupiedSquares(square);
-  return occupiedSquares.every(square => hasSquare(board, square));
-}
-
-const place = function(square){
-  if(isPlacable(square)){
-    const currentPlayer = state.currentPlayer;
-    const shipName = state.placingPhase.selectedShip;
-    const shipSquares = state.findShipsOccupiedSquares(square);
-    state.board.ships[currentPlayer][shipName] = shipSquares;
-    for(shipSquare of shipSquares){
-      board = board.filter(boardSquare => !equalSquares(boardSquare, shipSquare));
-    }
-  } // TODO: Else logic 
-}
-
-place([6,9]);
-place([8,9]);
-
-const getPlayerSquares = function(player){
-  let playerShips = Object.keys(player);
-  let takenSquares = [];
-  for(ship of playerShips){
-    takenSquares = takenSquares.concat(player[ship]);
-  }
-  return takenSquares;
-}
-
-
-const printBoard = (player) => {
-  const takenSquares = getPlayerSquares(player);
-  for(let i = 0; i < 10; i ++){
-    let row = '';
-    for(let j = 0; j < 10; j++){   
-      if(takenSquares.some(square => square[0] === i && square[1] === j))
-        row += '[X]';
-      else
-        row += '[ ]'; 
-    } 
-    console.log(row);
-  }
-}
-
-printBoard(state.board.ships['p1']);
-
-module.exports = hasSquare;
+module.exports = state;
 
