@@ -17,8 +17,8 @@ getPlayerSquares = function(player){
 }
 
 
-module.exports = {
-  equalSquares,
-  hasSquare,
-  getPlayerSquares
-};
+// module.exports = {
+//   equalSquares,
+//   hasSquare,
+//   getPlayerSquares
+// };

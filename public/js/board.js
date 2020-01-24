@@ -1,6 +1,5 @@
-const getPlayerSquares = require('./helpers').getPlayerSquares;
-
-generateBoard = function(){
+// const getPlayerSquares = require('./helpers').getPlayerSquares;
+const generateBoard = function(){
   let board = [];
   for(let i = 0; i < 10; i++){
     for(let j = 0; j < 10; j++){
@@ -10,7 +9,7 @@ generateBoard = function(){
   return board;
 }
 
-printBoard = function(player){
+const printBoard = function(player){
   const takenSquares = getPlayerSquares(player);
   for(let i = 0; i < 10; i ++){
     let row = '';
@@ -24,7 +23,18 @@ printBoard = function(player){
   }
 }
 
-module.exports = {
-  generateBoard,
-  printBoard
+const renderBoard = function(){
+  for(let i = 0; i < 10; i++){
+    let row = 'A';
+    for(let j = 1; j < 11; j++){
+      $('#board').append(`<div class='square' id='${row}${j}'></div>`);
+    }
+  }
 }
+
+// module.exports = {
+//   generateBoard,
+//   printBoard,
+//   renderBoard
+// }
+

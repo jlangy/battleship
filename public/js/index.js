@@ -1,11 +1,12 @@
-const generateBoard = require('./board').generateBoard;
-const printBoard = require('./board').printBoard;
-const place = require('./placingPhase').place;
-const isPlacable = require('./placingPhase').isPlacable;
-const hasSquare = require('./helpers').hasSquare;
-const equalSquares = require('./helpers').equalSquares;
-const findShipsOccupiedSquares = require('./placingPhase').findShipsOccupiedSquares;
-const getPlayerSquares = require('./helpers').getPlayerSquares;
+// const generateBoard = require('./board').generateBoard;
+// const renderBoard = require('./board').renderBoard;
+// const place = require('./placingPhase').place;
+// const isPlacable = require('./placingPhase').isPlacable;
+// const hasSquare = require('./helpers').hasSquare;
+// const equalSquares = require('./helpers').equalSquares;
+// const findShipsOccupiedSquares = require('./placingPhase').findShipsOccupiedSquares;
+// const getPlayerSquares = require('./helpers').getPlayerSquares;
+
 
 state = {
   p1Turn: false,
@@ -46,7 +47,6 @@ const shootSquare = function(square){
 const checkSunk = function(playerBoardKey){
   //go through hit squares in player board
   const hitSquares = state[playerBoardKey].hitSquares;
-  console.log(hitSquares);
   const playerShips = state[playerBoardKey].ships;
   const playerShipKeys = Object.keys(playerShips);
   for(shipKey of playerShipKeys){
@@ -56,6 +56,7 @@ const checkSunk = function(playerBoardKey){
     }
   }
 }
-console.log(state.p2Board.ships);
-checkSunk('p2Board');
-console.log(state.p2Board.ships);
+
+$(document).ready(() => {
+  renderBoard();
+});

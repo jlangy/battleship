@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const hasSquare = require('../js/index');
+const hasSquare = require('../public/js/helpers').hasSquare;
 
 describe('hasSquare', () => {
   it('detects that it has a square', () => {

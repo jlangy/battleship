@@ -1,5 +1,5 @@
-const hasSquare = require('../js/helpers').hasSquare;
-const equalSquares = require('../js/helpers').equalSquares;
+// const hasSquare = require('../js/helpers').hasSquare;
+// const equalSquares = require('../js/helpers').equalSquares;
 
 
 shipLengths = {
@@ -41,9 +41,9 @@ const findShipsOccupiedSquares = function(clickedSquare){
   } return occupiedSquares;
 }
 
-module.exports = {
-  shipLengths,
-  isPlacable,
-  place,
-  findShipsOccupiedSquares
-}
+// module.exports = {
+//   shipLengths,
+//   isPlacable,
+//   place,
+//   findShipsOccupiedSquares
+// }
