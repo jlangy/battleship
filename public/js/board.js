@@ -23,12 +23,10 @@ const printBoard = function(player){
 }
 
 const renderBoard = function(){
-  const rows = "ABCDEFGHIJ".split('');
   for(let i = 0; i < 10; i++){
-    let row = rows[i];
-    for(let j = 1; j < 11; j++){
-      $('#board').append(`<div class='square' id='${row}${j}'></div>`);
-    console.log(i,j);
+    let row = i;
+    for(let j = 0; j < 10; j++){
+      $('#board').append(`<div class='square' id='${i}${j}'></div>`);
     }
   }
 }
