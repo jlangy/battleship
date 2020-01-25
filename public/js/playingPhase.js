@@ -1,14 +1,76 @@
-
-
-const checkSunk = function(playerBoardKey){
+const checkSunk = function(){
   //go through hit squares in player board
-  const hitSquares = state[playerBoardKey].hitSquares;
-  const playerShips = state[playerBoardKey].ships;
-  const playerShipKeys = Object.keys(playerShips);
-  for(shipKey of playerShipKeys){
-    if(playerShips[shipKey].every(square => hasSquare(hitSquares, square))){
-      console.log(`You sunk the ship ${shipKey}`);
-      delete playerShips[shipKey];
+  const hitSquares = state[state.currentBoard].hitSquares;
+  const opponentShips = state[state.opponentBoard].ships;
+  const opponentShipKeys = Object.keys(opponentShips);
+  for(shipKey of opponentShipKeys){
+    if(opponentShips[shipKey].every(square => hasSquare(hitSquares, square))){
+      delete opponentShips[shipKey];
+      if (Object.keys(opponentShips).length === 0){
+        endGame()
+      }
     }
   }
+}
+
+const colorSquare = (square, cssClass) => {
+  const squareId = getIdFromSquare(square);
+  $(squareId).addClass(cssClass);
+}
+
+const shootSquare = function(square){
+  if(hasSquare(state[state.currentBoard].hitSquares, square) || hasSquare(state[state.currentBoard].missSquares, square)){
+    alert('Already shot!');
+    return;
+  }
+  const opponentShipSquares = getPlayerSquares(state[state.opponentBoard].ships);
+  const currentBoard = state.currentBoard;
+  if(hasSquare(opponentShipSquares, square)){
+    state[currentBoard].hitSquares.push(square);
+    colorSquare(square, 'hitSquare');
+    checkSunk();
+  } else {
+    state[currentBoard].missSquares.push(square);
+    colorSquare(square, 'missSquare');
+  }
+  changeTurn();
+}
+
+const changeTurnState = () => {
+  state.playerTurn = Number(!state.playerTurn);
+  const tempCurrentBoard = state.opponentBoard;
+  state.opponentBoard = state.currentBoard;
+  state.currentBoard = tempCurrentBoard;
+}
+
+const updatePlayerBoards = () => {
+  $('#displayBoard').empty();
+  $('#board').empty();
+  renderBoard();
+  renderDisplayBoard();
+}
+
+const changeTurn = () => {
+  changeTurnState();
+  alert(`${state.playerTurn + 1}'s Turn`);
+  updatePlayerBoards();
+}
+
+const addPlayPhaseListeners = () => {
+  $('#board').on('click', shootSquareHandler);
+}
+
+const shootSquareHandler = (event) => {
+  const clickedSquare = getSquareFromId(event.target.id);
+  shootSquare(clickedSquare);
+
+}
+
+const beginPlayPhase = () => {
+  state.playPhase = "gamePlay"
+  renderBoard();
+  renderDisplayBoard();
+  $('#board').off();
+  //You are currently here
+  addPlayPhaseListeners();
 }
