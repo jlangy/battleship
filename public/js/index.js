@@ -1,15 +1,14 @@
 state = {
-  p1Turn: false,
-  p2Turn: true,
+  p1Turn: true,
+  p2Turn: false,
   selectedShip: 'destroyer',
+  //for orientation 0 = north 1 = east 2 south 3 west
   shipOrientation: 0,
-  p1board: generateBoard(),
-  p2board: generateBoard(),
   //Board with players ships on it. Therefore has to have opponents hits on it
   p1Board: {
     hitSquares: [],
     missSquares: [],
-    ships: {'destroyer': [[1,1],[1,2]], 'battleship': [[5,3],[5,4],[5,5],[5,6]]}
+    ships:  {}// {'destroyer': [[1,1],[1,2]], 'battleship': [[5,3],[5,4],[5,5],[5,6]]}
   },
   p2Board: {
     hitSquares: [[1,1],[1,2], [3,3]],
@@ -19,12 +18,14 @@ state = {
 }
 
 const setBoardPlacementListeners = (event) => {
-  console.log(event.target.id)
   const clickedSquare = getSquareFromId(event.target.id);
-  console.log(clickedSquare);
+  place(clickedSquare, state.p1Board);
+  console.log(state.p1Board.ships)
 }
 
 $(document).ready(() => {
+  state.p1Board.availableSquares = generateBoard();
+  state.p2Board.availableSquares = generateBoard();
   renderBoard();
   $('#board').on('click', setBoardPlacementListeners)
 });

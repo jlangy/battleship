@@ -1,7 +1,3 @@
-// const hasSquare = require('../js/helpers').hasSquare;
-// const equalSquares = require('../js/helpers').equalSquares;
-
-
 shipLengths = {
   carrier: 5,
   battleship: 4,
@@ -12,21 +8,24 @@ shipLengths = {
 
 const isPlacable = function(square, board){
   const occupiedSquares = findShipsOccupiedSquares(square);
-  return occupiedSquares.every(square => hasSquare(board, square));
+  return occupiedSquares.every(square => hasSquare(board.availableSquares, square));
 }
 
-const place = function(square, board){
-  if(isPlacable(square, board)){
-    const currentPlayer = state.currentPlayer;
+const place = function(square, playerBoard){
+  if(isPlacable(square, playerBoard)){
     const shipName = state.selectedShip;
     const shipSquares = findShipsOccupiedSquares(square);
-    const currentBoard = state.p1Turn ? "p1Board" : "p2Board";
-    state[currentBoard]["ships"][shipName] = shipSquares;
+    playerBoard.ships[shipName] = shipSquares;
     for(shipSquare of shipSquares){
-      board = board.filter(boardSquare => !equalSquares(boardSquare, shipSquare));
+      playerBoard.availableSquares = playerBoard.availableSquares.filter(boardSquare => !equalSquares(boardSquare, shipSquare));
     }
-  } // TODO: Else logic
+  } else{
+    console.log("Couldn't place");
+  }// TODO: Else logic
 }
+
+//Takes in a square. Returns an array of all squares the selected ship would
+//occupy if it were placed on that square in the current orientation
 const findShipsOccupiedSquares = function(clickedSquare){
   const occupiedSquares = [clickedSquare];
   for(let i = 1; i < shipLengths[state.selectedShip]; i++){
@@ -40,10 +39,3 @@ const findShipsOccupiedSquares = function(clickedSquare){
       occupiedSquares.push([clickedSquare[0], clickedSquare[1] - i]);
   } return occupiedSquares;
 }
-
-// module.exports = {
-//   shipLengths,
-//   isPlacable,
-//   place,
-//   findShipsOccupiedSquares
-// }
