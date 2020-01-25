@@ -29,6 +29,9 @@ const renderBoard = function(){
       $('#board').append(`<div class='square' id='${i}${j}'></div>`);
     }
   }
+  $('#board').on('click', setBoardPlacementListeners);
+  $('#board').children().mouseover(setHover);
+  $('#board').children().mouseout(removePlacableCSS);
 }
 
 
