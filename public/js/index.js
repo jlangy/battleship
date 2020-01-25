@@ -1,7 +1,9 @@
 state = {
+  playPhase: null,
   hoverSquare: null,
   playerTurn: 0,
   currentBoard: "p1Board",
+  opponentBoard: "p2Board",
   selectedShip: 0,
   //for orientation 0 = north 1 = east 2 south 3 west
   shipOrientation: 1,
@@ -18,96 +20,50 @@ state = {
   }
 }
 
-const setBoardPlacementListeners = (event) => {
-  const clickedSquare = getSquareFromId(event.target.id);
-  const placed = place(clickedSquare, state[state.currentBoard]);
-  if(placed){
-    renderShipToBoard(clickedSquare);
+const colorSquare = (square, cssClass) => {
+  const squareId = getIdFromSquare(square);
+  $(squareId).addClass(cssClass);
+}
+
+const shootSquare = function(square){
+  if(hasSquare(state[state.currentBoard].hitSquares, square) || hasSquare(state[state.currentBoard].missSquares, square)){
+    alert('Already shot!');
+    return;
   }
-}
-
-const setHover = event => {
-  state.hoverSquare = event.target;
-  const clickedSquare = getSquareFromId(event.target.id);
-  addPlacableCSS(clickedSquare);
-}
-
-const addPlacableCSS = (clickedSquare) => {
-  const possibleSquares = findShipsOccupiedSquares(clickedSquare);
-  const placable = isPlacable(clickedSquare, state[state.currentBoard]);
-  if(placable){
-    for(let square of possibleSquares){
-      let squareId = getIdFromSquare(square);
-      $(squareId).addClass("placable");
-    }
+  const opponentBoardKey = state.opponentBoard;
+  const opponentShipSquares = getPlayerSquares(state[opponentBoardKey].ships);
+  if(hasSquare(opponentShipSquares, square)){
+    state[opponentBoardKey].hitSquares.push(square);
+    colorSquare(square, 'hitSquare');
+    // checkSunk(opponentBoardKey);
   } else {
-    for(let square of possibleSquares){
-      let squareId = getIdFromSquare(square);
-      $(squareId).addClass("notPlacable");
-    }
-  }
-}
-const removePlacableCSS = () => {
-  const clickedSquare = getSquareFromId(state.hoverSquare.id);
-  const possibleSquares = findShipsOccupiedSquares(clickedSquare);
-  for(let square of possibleSquares){
-    let squareId = getIdFromSquare(square);
-    $(squareId).removeClass("placable");
-    $(squareId).removeClass("notPlacable");
-  }
+    state[opponentBoardKey].missSquares.push(square);
+    colorSquare(square, 'missSquare');
+  }   
 }
 
-const renderShipToBoard = (clickedSquare) => {
-  for(let square of findShipsOccupiedSquares(clickedSquare)){
-    let squareId = getIdFromSquare(square);
-    $(squareId).addClass("hasShip");
-  }
-  incrementPlacePhase();
+const addPlayPhaseListeners = () => {
+  $('#board').on('click', shootSquareHandler);
 }
 
-const incrementPlacePhase = () => {
-  if(state.selectedShip < 4){
-    state.selectedShip += 1;
-  } else {
-    if(state.playerTurn === 0){
-      state.playerTurn = 1;
-      state.currentBoard = "p2Board";
-      state.selectedShip = 0;
-      alert("PLayer 2 turn");
-      renderBoard();
-    } else {
-      alert('Begin!');
-      beginPlayPhase();
-    }
-  }
+const shootSquareHandler = (event) => {
+  const clickedSquare = getSquareFromId(event.target.id);
+  shootSquare(clickedSquare);
+
 }
 
-const changeOrientation = (event) => {
-  const currentSquare = getSquareFromId(state.hoverSquare.id);
-  removePlacableCSS();
-  console.log(currentSquare);
-  switch (event.key){
-    case "ArrowUp":
-      state.shipOrientation = 0;
-      break;
-    case "ArrowRight":
-      state.shipOrientation = 1;
-      break;
-    case "ArrowDown":
-      state.shipOrientation = 2;
-      break;
-    case "ArrowLeft":
-      state.shipOrientation = 3;
-      break;
-  }
-  addPlacableCSS(currentSquare);
+const beginPlayPhase = () => {
+  state.playPhase = "gamePlay"
+  renderBoard();
+  renderDisplayBoard();
+  $('#board').off();
+  //You are currently here
+  addPlayPhaseListeners();
 }
-
 
 $(document).ready(() => {
   state.p1Board.availableSquares = generateBoard();
   state.p2Board.availableSquares = generateBoard();
   renderBoard();
-  $('body').keydown(changeOrientation);
-
+  addPlacementListeners();
 });

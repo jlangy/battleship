@@ -41,3 +41,103 @@ const findShipsOccupiedSquares = function(clickedSquare){
       occupiedSquares.push([clickedSquare[0], clickedSquare[1] - i]);
   } return occupiedSquares;
 }
+
+//Change the orientation of the ship being placed
+//Remove old hover css classes, and add new ones for current orientation 
+const changeOrientation = (event) => {
+  const currentSquare = getSquareFromId(state.hoverSquare.id);
+  removePlacableCSS();
+  switch (event.key){
+    case "ArrowUp":
+      state.shipOrientation = 0;
+      break;
+    case "ArrowRight":
+      state.shipOrientation = 1;
+      break;
+    case "ArrowDown":
+      state.shipOrientation = 2;
+      break;
+    case "ArrowLeft":
+      state.shipOrientation = 3;
+      break;
+  }
+  addPlacableCSS(currentSquare);
+}
+
+//Handles ship being placed, checks for turn change
+//or game start.
+const incrementPlacePhase = () => {
+  if(state.selectedShip < 4){
+    state.selectedShip += 1;
+  } else {
+    if(state.playerTurn === 0){
+      state.playerTurn = 1;
+      state.currentBoard = "p2Board";
+      state.opponentBoard = "p1Board";
+      state.selectedShip = 0;
+      alert("PLayer 2 turn");
+      renderBoard();
+      addPlacementListeners();
+    } else {
+      alert('Begin!');
+      beginPlayPhase();
+    }
+  }
+}
+
+         
+const addPlacementListeners = () => {
+  $('#board').on('click', placeShip);
+  $('#board').children().mouseover(setHover);
+  $('#board').children().mouseout(removePlacableCSS);
+  $('body').keydown(changeOrientation);
+}
+
+const placeShip = (event) => {
+  const clickedSquare = getSquareFromId(event.target.id);
+  const placed = place(clickedSquare, state[state.currentBoard]);
+  if(placed){
+    renderShipToBoard(clickedSquare);
+  }
+}
+
+//set the css for current square hover
+const setHover = event => {
+  state.hoverSquare = event.target;
+  const clickedSquare = getSquareFromId(event.target.id);
+  addPlacableCSS(clickedSquare);
+}
+
+const addPlacableCSS = (clickedSquare) => {
+  const possibleSquares = findShipsOccupiedSquares(clickedSquare);
+  const placable = isPlacable(clickedSquare, state[state.currentBoard]);
+  if(placable){
+    for(let square of possibleSquares){
+      let squareId = getIdFromSquare(square);
+      $(squareId).addClass("placable");
+    }
+  } else {
+    for(let square of possibleSquares){
+      let squareId = getIdFromSquare(square);
+      $(squareId).addClass("notPlacable");
+    }
+  }
+}
+
+const removePlacableCSS = () => {
+  const clickedSquare = getSquareFromId(state.hoverSquare.id);
+  const possibleSquares = findShipsOccupiedSquares(clickedSquare);
+  for(let square of possibleSquares){
+    let squareId = getIdFromSquare(square);
+    $(squareId).removeClass("placable");
+    $(squareId).removeClass("notPlacable");
+  }
+}
+
+const renderShipToBoard = (clickedSquare) => {
+  for(let square of findShipsOccupiedSquares(clickedSquare)){
+    let squareId = getIdFromSquare(square);
+    $(squareId).addClass("hasShip");
+  }
+  incrementPlacePhase();
+}

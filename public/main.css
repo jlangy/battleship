@@ -1,14 +1,53 @@
+:root {
+  --square-dimension: 30px;
+  --board-dimension: calc(var(--square-dimension) * 10);
+}
+
 .square {
-  background-color: red;
-  height: 30px;
-  width: 30px;
+  background-color: rgb(224, 222, 222);
+  height: var(--square-dimension);
+  width: var(--square-dimension);
   border: 1px solid black;
 }
 
-board{
-  width: 300px;
-  height: 300px;
+#board-container{
+  display: flex;
+  flex-flow: row;
+}
+
+#board{
+  width: var(--board-dimension);
+  height: var(--board-dimension);
   display: grid;
-  grid-template-columns: repeat(10, 30px);
-  grid-template-rows: repeat(10, 30px);
+  grid-template-columns: repeat(10, var(--square-dimension));
+  grid-template-rows: repeat(10, var(--square-dimension));
+}
+
+#displayBoard{
+  margin-left: 200px;
+  width: var(--board-dimension);
+  height: var(--board-dimension);
+  display: grid;
+  grid-template-columns: repeat(10, var(--square-dimension));
+  grid-template-rows: repeat(10, var(--square-dimension));
+}
+
+.placable {
+  background-color: green;
+}
+
+.notPlacable {
+  background-color: red;
+}
+
+.hasShip {
+  background-color: black;
+}
+
+.hitSquare{
+  background-color: green;
+}
+
+.missSquare{
+  background-color: red;
 }

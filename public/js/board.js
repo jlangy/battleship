@@ -29,9 +29,19 @@ const renderBoard = function(){
       $('#board').append(`<div class='square' id='${i}${j}'></div>`);
     }
   }
-  $('#board').on('click', setBoardPlacementListeners);
-  $('#board').children().mouseover(setHover);
-  $('#board').children().mouseout(removePlacableCSS);
+}
+
+const renderDisplayBoard = function(){
+  for(let i = 0; i < 10; i++){
+    let row = i;
+    for(let j = 0; j < 10; j++){
+      if(state.playPhase === "gamePlay" && hasSquare(getPlayerSquares(state[state.currentBoard].ships), getSquareFromId(`${i}${j}`))){
+        $('#displayBoard').append(`<div class='square hasShip' id='d${i}${j}'></div>`);
+      } else {
+        $('#displayBoard').append(`<div class='square' id='d${i}${j}'></div>`);
+      }
+    }
+  }
 }
 
 
