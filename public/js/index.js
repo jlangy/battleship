@@ -30,26 +30,37 @@ const shootSquare = function(square){
     alert('Already shot!');
     return;
   }
-  const opponentBoardKey = state.opponentBoard;
-  const opponentShipSquares = getPlayerSquares(state[opponentBoardKey].ships);
+  const opponentShipSquares = getPlayerSquares(state[state.opponentBoard].ships);
+  const currentBoard = state.currentBoard;
   if(hasSquare(opponentShipSquares, square)){
-    state[state.currentBoard].hitSquares.push(square);
+    state[currentBoard].hitSquares.push(square);
     colorSquare(square, 'hitSquare');
     // checkSunk(opponentBoardKey);
   } else {
-    state[state.currentBoard].missSquares.push(square);
+    state[currentBoard].missSquares.push(square);
     colorSquare(square, 'missSquare');
   }
-  //change turn
+  changeTurn();
+}
+
+const changeTurnState = () => {
   state.playerTurn = Number(!state.playerTurn);
   const tempCurrentBoard = state.opponentBoard;
   state.opponentBoard = state.currentBoard;
   state.currentBoard = tempCurrentBoard;
-  alert(`${state.playerTurn}'s Turn`);
+}
+
+const updatePlayerBoards = () => {
   $('#displayBoard').empty();
   $('#board').empty();
   renderBoard();
   renderDisplayBoard();
+}
+
+const changeTurn = () => {
+  changeTurnState();
+  alert(`${state.playerTurn + 1}'s Turn`);
+  updatePlayerBoards();
 }
 
 const addPlayPhaseListeners = () => {
