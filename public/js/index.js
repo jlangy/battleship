@@ -20,6 +20,25 @@ state = {
   }
 }
 
+const checkSunk = function(){
+  //go through hit squares in player board
+  const hitSquares = state[state.currentBoard].hitSquares;
+  const opponentShips = state[state.opponentBoard].ships;
+  const opponentShipKeys = Object.keys(opponentShips);
+  for(shipKey of opponentShipKeys){
+    if(opponentShips[shipKey].every(square => hasSquare(hitSquares, square))){
+      delete opponentShips[shipKey];
+      if (Object.keys(opponentShips).length === 0){
+        endGame()
+      }
+    }
+  }
+}
+
+const endGame = () => {
+  alert(`Player ${state.playerTurn + 1} Has Won the game!`);
+}
+
 const colorSquare = (square, cssClass) => {
   const squareId = getIdFromSquare(square);
   $(squareId).addClass(cssClass);
@@ -35,7 +54,7 @@ const shootSquare = function(square){
   if(hasSquare(opponentShipSquares, square)){
     state[currentBoard].hitSquares.push(square);
     colorSquare(square, 'hitSquare');
-    // checkSunk(opponentBoardKey);
+    checkSunk();
   } else {
     state[currentBoard].missSquares.push(square);
     colorSquare(square, 'missSquare');
