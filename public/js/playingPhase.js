@@ -52,6 +52,7 @@ const updatePlayerBoards = () => {
 
 const changeTurn = () => {
   changeTurnState();
+  $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
   alert(`${state.playerTurn + 1}'s Turn`);
   updatePlayerBoards();
 }
@@ -67,9 +68,12 @@ const shootSquareHandler = (event) => {
 }
 
 const beginPlayPhase = () => {
-  state.playPhase = "gamePlay"
+  state.playPhase = "gamePlay";
+  $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
   renderBoard();
   renderDisplayBoard();
+  $('#board-title').text("Opponent's board. \n Shoot at it");
+  $('#display-board-title').text("Your board. \n Dont shoot at it");
   $('#board').off();
   //You are currently here
   addPlayPhaseListeners();

@@ -10,9 +10,13 @@
   border: 1px solid black;
 }
 
-#board-container{
+#boards-container{
   display: flex;
   flex-flow: row;
+}
+
+#display-board-container{
+  margin-left: 200px;
 }
 
 #board{
@@ -24,7 +28,6 @@
 }
 
 #displayBoard{
-  margin-left: 200px;
   width: var(--board-dimension);
   height: var(--board-dimension);
   display: grid;

@@ -80,6 +80,8 @@ const incrementPlacePhase = () => {
       addPlacementListeners();
     } else {
       alert('Begin!');
+      state.playPhase = 'gamePlay';
+      state.playerTurn = 0;
       beginPlayPhase();
     }
   }
@@ -122,6 +124,14 @@ const addPlacableCSS = (clickedSquare) => {
       $(squareId).addClass("notPlacable");
     }
   }
+}
+
+const beginPlacementPhase = () => {
+  state.p1Board.availableSquares = generateBoard();
+  state.p2Board.availableSquares = generateBoard();
+  renderBoard();
+  $('#board-title').text('Place Ships Here');
+  addPlacementListeners();
 }
 
 const removePlacableCSS = () => {

@@ -38,6 +38,8 @@ const renderBoard = function(){
         } else{
           $('#board').append(`<div class='square' id='${i}${j}'></div>`);
         }
+      } else {
+        $('#board').append(`<div class='square' id='${i}${j}'></div>`);
       }
     }
   }

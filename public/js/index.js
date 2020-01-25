@@ -12,12 +12,12 @@ state = {
     hitSquares: [],
     //squares that p1 has missed on p2's board
     missSquares: [],
-    ships: {'destroyer': [[1,1],[1,2]], 'battleship': [[5,3],[5,4],[5,5],[5,6]]}
+    ships: {}  //{'destroyer': [[1,1],[1,2]], 'battleship': [[5,3],[5,4],[5,5],[5,6]]}
   },
   p2Board: {
     hitSquares: [],
     missSquares: [],
-    ships: {'destroyer': [[5,1],[5,2]], 'battleship': [[3,3],[4,3],[5,3],[6,3]]}
+    ships: {}   //{'destroyer': [[5,1],[5,2]], 'battleship': [[3,3],[4,3],[5,3],[6,3]]}
   }
 }
 
@@ -26,13 +26,5 @@ const endGame = () => {
 }
 
 $(document).ready(() => {
-  //temporary if else for testing. Else statement is placement phase
-  if(state.playPhase === "gamePlay"){
-    beginPlayPhase();
-  } else {
-    state.p1Board.availableSquares = generateBoard();
-    state.p2Board.availableSquares = generateBoard();
-    renderBoard();
-    addPlacementListeners();
-  }
+  beginPlacementPhase();
 });
