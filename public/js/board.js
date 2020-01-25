@@ -35,10 +35,23 @@ const renderDisplayBoard = function(){
   for(let i = 0; i < 10; i++){
     let row = i;
     for(let j = 0; j < 10; j++){
-      if(state.playPhase === "gamePlay" && hasSquare(getPlayerSquares(state[state.currentBoard].ships), getSquareFromId(`${i}${j}`))){
-        $('#displayBoard').append(`<div class='square hasShip' id='d${i}${j}'></div>`);
-      } else {
+      if(state.playPhase === "gamePlay"){
+        const currentSquare =  getSquareFromId(`${i}${j}`);
+        const playerShipSquares = getPlayerSquares(state[state.currentBoard].ships);
+        const opponentsMisses = state[state.opponentBoard].missSquares;
+        const opponentsHits = state[state.opponentBoard].hitSquares;
+        //check if it is in opponent hit or miss squares FIRST, since then the ship colour doesnt matter
+        if(hasSquare(opponentsHits, currentSquare)){
+          $('#displayBoard').append(`<div class='square hitSquare' id='d${i}${j}'></div>`);
+        }
+        else if(hasSquare(opponentsMisses, currentSquare)){
+          $('#displayBoard').append(`<div class='square missSquare' id='d${i}${j}'></div>`);
+        }
+        else if (hasSquare(playerShipSquares, currentSquare)){
+          $('#displayBoard').append(`<div class='square hasShip' id='d${i}${j}'></div>`);
+        } else {
         $('#displayBoard').append(`<div class='square' id='d${i}${j}'></div>`);
+        }
       }
     }
   }

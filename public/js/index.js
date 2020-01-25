@@ -1,5 +1,5 @@
 state = {
-  playPhase: null,
+  playPhase: "gamePlay",
   hoverSquare: null,
   playerTurn: 0,
   currentBoard: "p1Board",
@@ -11,12 +11,12 @@ state = {
   p1Board: {
     hitSquares: [],
     missSquares: [],
-    ships:  {}// {'destroyer': [[1,1],[1,2]], 'battleship': [[5,3],[5,4],[5,5],[5,6]]}
+    ships: {'destroyer': [[1,1],[1,2]], 'battleship': [[5,3],[5,4],[5,5],[5,6]]}
   },
   p2Board: {
-    hitSquares: [[1,1],[1,2], [3,3]],
+    hitSquares: [],
     missSquares: [],
-    ships: {}//{'destroyer': [[1,1],[1,2]], 'battleship': [[3,3],[4,3],[5,3],[6,3]]}
+    ships: {'destroyer': [[5,1],[5,2]], 'battleship': [[3,3],[4,3],[5,3],[6,3]]}
   }
 }
 
@@ -33,13 +33,23 @@ const shootSquare = function(square){
   const opponentBoardKey = state.opponentBoard;
   const opponentShipSquares = getPlayerSquares(state[opponentBoardKey].ships);
   if(hasSquare(opponentShipSquares, square)){
-    state[opponentBoardKey].hitSquares.push(square);
+    state[state.currentBoard].hitSquares.push(square);
     colorSquare(square, 'hitSquare');
     // checkSunk(opponentBoardKey);
   } else {
-    state[opponentBoardKey].missSquares.push(square);
+    state[state.currentBoard].missSquares.push(square);
     colorSquare(square, 'missSquare');
-  }   
+  }
+  //change turn
+  state.playerTurn = Number(!state.playerTurn);
+  const tempCurrentBoard = state.opponentBoard;
+  state.opponentBoard = state.currentBoard;
+  state.currentBoard = tempCurrentBoard;
+  alert(`${state.playerTurn}'s Turn`);
+  $('#displayBoard').empty();
+  $('#board').empty();
+  renderBoard();
+  renderDisplayBoard();
 }
 
 const addPlayPhaseListeners = () => {
@@ -62,8 +72,13 @@ const beginPlayPhase = () => {
 }
 
 $(document).ready(() => {
-  state.p1Board.availableSquares = generateBoard();
-  state.p2Board.availableSquares = generateBoard();
-  renderBoard();
-  addPlacementListeners();
+  //temporary if else for testing. Else statement is placement phase
+  if(state.playPhase === "gamePlay"){
+    beginPlayPhase();
+  } else {
+    state.p1Board.availableSquares = generateBoard();
+    state.p2Board.availableSquares = generateBoard();
+    renderBoard();
+    addPlacementListeners();
+  }
 });
