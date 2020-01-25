@@ -1,11 +1,11 @@
 const shootSquare = function(square){
   //Checking if on board should be unneccessary since it will be called via click listener
-  const playerBoardKey = state.p1Turn ? "p1Board": "p2Board";
+  const playerBoardKey = state.playerTurn ? "p1Board": "p2Board";
   if(hasSquare(state[playerBoardKey].hitSquares, square) || hasSquare(state[playerBoardKey].missSquares, square)){
     return;
     //Can't reshoot, send some msg here
   }
-  const opponentBoardKey = state.p1Turn ? "p2Board" : "p1Board";
+  const opponentBoardKey = state.playerTurn ? "p2Board" : "p1Board";
   const opponentShipSquares = getPlayerSquares(state[opponentBoardKey].ships);
   if(hasSquare(opponentShipSquares, square)){
     state[opponentBoardKey].hitSquares.push(square);

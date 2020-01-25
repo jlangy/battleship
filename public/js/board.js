@@ -18,7 +18,6 @@ const printBoard = function(player){
       else
         row += '[ ]'; 
     } 
-    console.log(row);
   }
 }
 

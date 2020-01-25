@@ -18,6 +18,6 @@ const getPlayerSquares = function(player){
 //Given an element id, e.g "11", return it as a square, [1,1]
 const getSquareFromId = idStr => [Number(idStr[0]), Number(idStr[1])];
 
-console.log(getSquareFromId('55'));
-console.log(getSquareFromId('35'));
-console.log(getSquareFromId('59'));
+const getIdFromSquare = square => "#" + String(square[0]) + String(square[1]);
+
+console.log(getIdFromSquare([1,2]));
