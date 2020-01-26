@@ -28,6 +28,8 @@ const endGame = () => {
 
 const setGameMenu = () => {
   $('#start-game-btn').on('click', (event) => {
+    clearBoard();
+    resetState();
     $('#game-display').css('display', 'flex');
     state.playPhase = "placePhase";
     beginPlacementPhase();

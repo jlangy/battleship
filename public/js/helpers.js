@@ -27,3 +27,45 @@ const switchPlayers = () => {
   state.opponentBoard = tempPlayerBoard;
   state.playerTurn = Number(!state.playerTurn);
 }
+
+const disableBoard = () => {
+  $('#board').off();
+  $('#board').children().off();
+  $('body').off();
+}
+
+const clearBoard = () => {
+  disableBoard();
+  $('#display-board-container').css('display', 'none');
+  $('#board-title').text("");
+  $('#display-board-title').text("");
+  $('#board').empty();
+  $('#displayBoard').empty();
+  $('#game-display').css('display', 'none');
+}
+
+resetState = () => {
+  state = state = {
+    playPhase: null,
+    hoverSquare: null,
+    turnComplete: false,
+    playerTurn: 0,
+    currentBoard: "p1Board",
+    opponentBoard: "p2Board",
+    selectedShip: 0,
+    //for orientation 0 = north 1 = east 2 south 3 west
+    shipOrientation: 1,
+    p1Board: {
+      //squares that p1 has hit on p2's board
+      hitSquares: [],
+      //squares that p1 has missed on p2's board
+      missSquares: [],
+      ships: {}  //{'destroyer': [[1,1],[1,2]], 'battleship': [[5,3],[5,4],[5,5],[5,6]]}
+    },
+    p2Board: {
+      hitSquares: [],
+      missSquares: [],
+      ships: {}   //{'destroyer': [[5,1],[5,2]], 'battleship': [[3,3],[4,3],[5,3],[6,3]]}
+    }
+  }
+}

@@ -81,12 +81,6 @@ const incrementPlacePhase = () => {
   }
 }
 
-const disableBoard = () => {
-  $('#board').off();
-  $('#board').children().off();
-  $('body').off();
-}
-
 const toggleModal = (msg, turnOn) => {
   $('#modal-title').text(msg);
   if(turnOn){
