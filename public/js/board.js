@@ -75,3 +75,18 @@ const drawDisplaySquare = (i,j) => {
   }
 }
 
+const disableBoard = () => {
+  $('#board').off();
+  $('#board').children().off();
+  $('body').off();
+}
+
+const clearBoard = () => {
+  disableBoard();
+  $('#display-board-container').css('display', 'none');
+  $('#board-title').text("");
+  $('#display-board-title').text("");
+  $('#board').empty();
+  $('#displayBoard').empty();
+  $('#game-display').css('display', 'none');
+}

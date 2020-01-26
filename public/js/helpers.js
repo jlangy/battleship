@@ -28,22 +28,6 @@ const switchPlayers = () => {
   state.playerTurn = Number(!state.playerTurn);
 }
 
-const disableBoard = () => {
-  $('#board').off();
-  $('#board').children().off();
-  $('body').off();
-}
-
-const clearBoard = () => {
-  disableBoard();
-  $('#display-board-container').css('display', 'none');
-  $('#board-title').text("");
-  $('#display-board-title').text("");
-  $('#board').empty();
-  $('#displayBoard').empty();
-  $('#game-display').css('display', 'none');
-}
-
 resetState = () => {
   state = state = {
     playPhase: null,
