@@ -68,9 +68,9 @@ footer{
   color: black;
 }
 
-.menu-button:hover{
+/* .menu-button:hover{
   background: rgba(20,100,200,1);
-}
+} */
 
 #game-display{
   display: none; /*flex*/
@@ -155,4 +155,10 @@ footer{
 }
 #new-turn-button{
   width: 50%;
+}
+
+.selected{
+  box-sizing: border-box;
+  background-color: yellow;
+  border: 10px solid rgba(20,100,200,1);
 }

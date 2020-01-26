@@ -34,6 +34,10 @@ const setGameMenu = () => {
     state.playPhase = "placePhase";
     beginPlacementPhase();
   });
+  $('#human-opponent, #AI-opponent').on('click', () => {
+    $('#human-opponent').toggleClass('selected');
+    $('#AI-opponent').toggleClass('selected');
+  });
 }
 
 $(document).ready(() => {
