@@ -44,19 +44,20 @@ $(document).ready(() => {
 });
 
 const handleTurnEnd = () => {
+  console.log(state.playerTurn);
   if(state.turnComplete){
+    state.turnComplete = false;
     if(state.playPhase === "placePhase"){
       switchPlayers();
       renderBoard();
       addPlacementListeners();
-      toggleModal(`${state.playerTurn + 1}'s turn`, true);
     } else if(state.playPhase === "gamePlay"){
       changeTurn();
-      toggleModal(`${state.playerTurn + 1}'s turn`, true);
     } else if(state.playPhase == "transition"){
       beginPlayPhase();
+      state.playPhase = "gamePlay";
       changeTurn();
-      toggleModal(`${state.playerTurn + 1}'s turn`, true);
     }
+    toggleModal(`${state.playerTurn + 1}'s turn`, true);
   }
 }

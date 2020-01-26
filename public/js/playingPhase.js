@@ -33,32 +33,21 @@ const shootSquare = function(square){
     state[currentBoard].missSquares.push(square);
     colorSquare(square, 'missSquare');
   }
-  // changeTurn();
+  //End of turn. Wait for button click to put up blinder
   disableBoard();
-  // toggleModal(`${state.playerTurn}'s turn`, true);
-}
-
-const changeTurnState = () => {
-  state.playerTurn = Number(!state.playerTurn);
-  const tempCurrentBoard = state.opponentBoard;
-  state.opponentBoard = state.currentBoard;
-  state.currentBoard = tempCurrentBoard;
+  state.turnComplete = true;
 }
 
 const updatePlayerBoards = () => {
-  $('#displayBoard').empty();
-  $('#board').empty();
   renderBoard();
   renderDisplayBoard();
   addPlayPhaseListeners();
 }
 
 const changeTurn = () => {
-  changeTurnState();
+  switchPlayers();
   $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
-  // toggleModal(`${state.playerTurn + 1}'s turn`, true);
   updatePlayerBoards();
-  console.log(state.opponentBoard, "opponents board");
 }
 
 const addPlayPhaseListeners = () => {
@@ -72,12 +61,7 @@ const shootSquareHandler = (event) => {
 
 const beginPlayPhase = () => {
   state.hoverSquare = null;
-  $('#board').off();
   $('#display-board-container').css('display', 'unset');
-  $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
-  // renderBoard();
-  // renderDisplayBoard();
   $('#board-title').text("Opponent's board. \n Shoot at it");
   $('#display-board-title').text("Your board. \n Dont shoot at it");
-  addPlayPhaseListeners();
 }

@@ -60,7 +60,6 @@ const changeOrientation = (event) => {
     case "ArrowLeft":
       state.shipOrientation = 3;
       break;
-    break;
   }
   addPlacableCSS(currentSquare);
 }
@@ -76,11 +75,8 @@ const incrementPlacePhase = () => {
       state.turnComplete = true;
     } else {
       disableBoard();
+      state.turnComplete = true;
       state.playPhase = 'transition';
-      // state.currentBoard = "p1Board";
-      // state.opponentBoard = "p2Board";
-      // beginPlayPhase();
-      // toggleModal("Start!", true);
     }
   }
 }

@@ -25,5 +25,5 @@ const switchPlayers = () => {
   state.selectedShip = 0;
   state.currentBoard = state.opponentBoard;
   state.opponentBoard = tempPlayerBoard;
-  state.playerTurn = !state.playerTurn;
+  state.playerTurn = Number(!state.playerTurn);
 }
