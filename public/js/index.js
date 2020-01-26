@@ -34,5 +34,8 @@ const setGameMenu = () => {
 }
 
 $(document).ready(() => {
+  $('#new-turn-button').on("click", () => {
+    toggleModal(null, false);
+  });
   setGameMenu();
 });

@@ -67,7 +67,7 @@ const changeOrientation = (event) => {
 //Handles ship being placed, checks for turn change
 //or game start.
 const incrementPlacePhase = () => {
-  if(state.selectedShip < 4){
+  if(state.selectedShip < shipLengths.length - 1){
     state.selectedShip += 1;
   } else {
     if(state.playerTurn === 0){
@@ -75,16 +75,30 @@ const incrementPlacePhase = () => {
       state.currentBoard = "p2Board";
       state.opponentBoard = "p1Board";
       state.selectedShip = 0;
-      alert("PLayer 2 turn");
       renderBoard();
       addPlacementListeners();
+      alert('Player 2 turn');
+      // toggleModal("Player 2 Place Ships", true);
     } else {
-      alert('Begin!');
       state.playPhase = 'gamePlay';
       state.playerTurn = 0;
+      state.currentBoard = "p1Board";
+      state.opponentBoard = "p2Board";
+      alert('Begin');
       beginPlayPhase();
+      // toggleModal("Start!", true);
     }
   }
+}
+
+const toggleModal = (msg, turnOn) => {
+  $('#modal-title').text(msg);
+  if(turnOn){
+    $('#modal').css("display", "unSet");
+  } else {
+    $('#modal').css("display", "none");
+  }
+  $('#new-turn-button').focus();
 }
 
 const addPlacementListeners = () => {

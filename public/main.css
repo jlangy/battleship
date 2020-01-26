@@ -105,3 +105,26 @@ footer{
 .missSquare{
   background-color: red;
 }
+
+#modal{
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#turn-change-menu{
+  margin: auto;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+#modal-title{
+  color: white;
+}
+#new-turn-button{
+  width: 50%;
+}

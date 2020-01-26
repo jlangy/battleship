@@ -53,7 +53,7 @@ const updatePlayerBoards = () => {
 const changeTurn = () => {
   changeTurnState();
   $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
-  alert(`${state.playerTurn + 1}'s Turn`);
+  // toggleModal(`${state.playerTurn + 1}'s turn`, true);
   updatePlayerBoards();
 }
 
@@ -64,11 +64,11 @@ const addPlayPhaseListeners = () => {
 const shootSquareHandler = (event) => {
   const clickedSquare = getSquareFromId(event.target.id);
   shootSquare(clickedSquare);
-
 }
 
 const beginPlayPhase = () => {
-  $('#display-board-container').css('display', 'unset')
+  $('#board').off();
+  $('#display-board-container').css('display', 'unset');
   state.playPhase = "gamePlay";
   $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
   renderBoard();
@@ -76,6 +76,5 @@ const beginPlayPhase = () => {
   $('#board-title').text("Opponent's board. \n Shoot at it");
   $('#display-board-title').text("Your board. \n Dont shoot at it");
   $('#board').off();
-  //You are currently here
   addPlayPhaseListeners();
 }
