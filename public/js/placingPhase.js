@@ -87,7 +87,6 @@ const incrementPlacePhase = () => {
   }
 }
 
-         
 const addPlacementListeners = () => {
   $('#board').on('click', placeShip);
   $('#board').children().mouseover(setHover);

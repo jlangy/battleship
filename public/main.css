@@ -3,6 +3,16 @@
   --board-dimension: calc(var(--square-dimension) * 10);
 }
 
+html{
+  height: 100%;
+}
+
+body{
+  background-image: url('img/submarine-168884_1920.jpg');
+  display: flex;
+  flex-flow: column;
+}
+
 .square {
   background-color: rgb(224, 222, 222);
   height: var(--square-dimension);
@@ -10,13 +20,54 @@
   border: 1px solid black;
 }
 
-#boards-container{
+#start-menu{
+  background: rgb(54, 45, 45);
+  height: 400px;
+  width: 600px;
+  margin: auto;
+  margin-top: 100px;
   display: flex;
+}
+
+#page-title{
+  color: rgb(182, 182, 182);
+}
+
+footer{
+  position: absolute;
+  bottom:0;
+  background-color: white;
+}
+
+#start-game-btn {
+  margin: auto;
+}
+
+#game-display{
+  display: none; /*flex*/
+  background-color: rgba(0,0,0,0.5);
+  flex-flow: column;
+  margin: auto;
+  margin-top: 100px;
+  color: rgb(209, 209, 209);
+}
+
+#dual-board-container{
+  display:flex;
   flex-flow: row;
+}
+
+#player-turn-title{
+  margin: auto;
+}
+
+.board{
+  margin: 20px;
 }
 
 #display-board-container{
   margin-left: 200px;
+  display: none;
 }
 
 #board{

@@ -1,5 +1,5 @@
 state = {
-  playPhase: "gamePlay",
+  playPhase: null,
   hoverSquare: null,
   playerTurn: 0,
   currentBoard: "p1Board",
@@ -25,6 +25,14 @@ const endGame = () => {
   alert(`Player ${state.playerTurn + 1} Has Won the game!`);
 }
 
+const setGameMenu = () => {
+  $('#start-game-btn').on('click', (event) => {
+    $('#start-menu').css('display', 'none');
+    $('#game-display').css('display', 'flex');
+    beginPlacementPhase();
+  });
+}
+
 $(document).ready(() => {
-  beginPlacementPhase();
+  setGameMenu();
 });

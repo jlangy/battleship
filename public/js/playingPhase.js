@@ -68,6 +68,7 @@ const shootSquareHandler = (event) => {
 }
 
 const beginPlayPhase = () => {
+  $('#display-board-container').css('display', 'unset')
   state.playPhase = "gamePlay";
   $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
   renderBoard();
