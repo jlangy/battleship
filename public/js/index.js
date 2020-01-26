@@ -30,6 +30,7 @@ const setGameMenu = () => {
   $('#start-game-btn').on('click', (event) => {
     clearBoard();
     resetState();
+    state.opponentType = $('.selected').attr('data-opponent');
     $('#game-display').css('display', 'flex');
     state.playPhase = "placePhase";
     beginPlacementPhase();
@@ -49,7 +50,6 @@ $(document).ready(() => {
 });
 
 const handleTurnEnd = () => {
-  console.log(state.playerTurn);
   if(state.turnComplete){
     state.turnComplete = false;
     if(state.playPhase === "placePhase"){

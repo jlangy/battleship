@@ -70,13 +70,19 @@ const incrementPlacePhase = () => {
   if(state.selectedShip < shipLengths.length - 1){
     state.selectedShip += 1;
   } else {
-    if(state.playerTurn === 0){
-      disableBoard();
-      state.turnComplete = true;
+    if (state.opponentType === 'Human'){
+      if(state.playerTurn === 0){
+        disableBoard();
+        state.turnComplete = true;
+      } else {
+        disableBoard();
+        state.turnComplete = true;
+        state.playPhase = 'transition';
+      }
     } else {
-      disableBoard();
+      placeAIShips();
       state.turnComplete = true;
-      state.playPhase = 'transition';
+      state.playPhase = 'transition'
     }
   }
 }
