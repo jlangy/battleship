@@ -1,6 +1,7 @@
 state = {
   playPhase: null,
   hoverSquare: null,
+  turnComplete: false,
   playerTurn: 0,
   currentBoard: "p1Board",
   opponentBoard: "p2Board",
@@ -35,8 +36,27 @@ const setGameMenu = () => {
 }
 
 $(document).ready(() => {
+  $('#end-turn-button').on("click", handleTurnEnd);
   $('#new-turn-button').on("click", () => {
     toggleModal('', false);
   });
   setGameMenu();
 });
+
+const handleTurnEnd = () => {
+  if(state.turnComplete){
+    if(state.playPhase === "placePhase"){
+      switchPlayers();
+      renderBoard();
+      addPlacementListeners();
+      toggleModal(`${state.playerTurn + 1}'s turn`, true);
+    } else if(state.playPhase === "gamePlay"){
+      changeTurn();
+      toggleModal(`${state.playerTurn + 1}'s turn`, true);
+    } else if(state.playPhase == "transition"){
+      beginPlayPhase();
+      changeTurn();
+      toggleModal(`${state.playerTurn + 1}'s turn`, true);
+    }
+  }
+}

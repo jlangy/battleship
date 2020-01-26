@@ -1,9 +1,9 @@
 const shipLengths = [
   {name: 'carrier', length: 5},
-  {name: 'battleship', length: 4},
-  {name: 'cruiser', length: 3},
-  {name: 'submarine', length: 3},
-  {name: 'destroyer', length: 2}
+  // {name: 'battleship', length: 4},
+  // {name: 'cruiser', length: 3},
+  // {name: 'submarine', length: 3},
+  // {name: 'destroyer', length: 2}
 ]
 
 const isPlacable = function(square, board){
@@ -60,6 +60,7 @@ const changeOrientation = (event) => {
     case "ArrowLeft":
       state.shipOrientation = 3;
       break;
+    break;
   }
   addPlacableCSS(currentSquare);
 }
@@ -71,31 +72,33 @@ const incrementPlacePhase = () => {
     state.selectedShip += 1;
   } else {
     if(state.playerTurn === 0){
-      state.playerTurn = 1;
-      state.currentBoard = "p2Board";
-      state.opponentBoard = "p1Board";
-      state.selectedShip = 0;
-      renderBoard();
-      addPlacementListeners();
-      toggleModal("Player 2 Place Ships", true);
+      disableBoard();
+      state.turnComplete = true;
     } else {
-      state.playPhase = 'gamePlay';
-      state.currentBoard = "p1Board";
-      state.opponentBoard = "p2Board";
-      beginPlayPhase();
-      toggleModal("Start!", true);
+      disableBoard();
+      state.playPhase = 'transition';
+      // state.currentBoard = "p1Board";
+      // state.opponentBoard = "p2Board";
+      // beginPlayPhase();
+      // toggleModal("Start!", true);
     }
   }
+}
+
+const disableBoard = () => {
+  $('#board').off();
+  $('#board').children().off();
+  $('body').off();
 }
 
 const toggleModal = (msg, turnOn) => {
   $('#modal-title').text(msg);
   if(turnOn){
-    $('#modal').css("display", "unSet");
+    $('#modal').css("display", "flex");
   } else {
     $('#modal').css("display", "none");
   }
-  // $('#new-turn-button').focus();
+  $('#new-turn-button').focus();
 }
 
 const addPlacementListeners = () => {

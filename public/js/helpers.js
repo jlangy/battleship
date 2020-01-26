@@ -19,3 +19,11 @@ const getPlayerSquares = function(player){
 const getSquareFromId = idStr => [Number(idStr[0]), Number(idStr[1])];
 
 const getIdFromSquare = square => "#" + String(square[0]) + String(square[1]);
+
+const switchPlayers = () => {
+  const tempPlayerBoard = state.currentBoard;
+  state.selectedShip = 0;
+  state.currentBoard = state.opponentBoard;
+  state.opponentBoard = tempPlayerBoard;
+  state.playerTurn = !state.playerTurn;
+}
