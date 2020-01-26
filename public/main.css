@@ -21,16 +21,32 @@ body{
 }
 
 #start-menu{
-  background: rgb(54, 45, 45);
+  /* background: rgba(0,0,0,0.8); */
   height: 400px;
-  width: 600px;
-  margin: auto;
-  margin-top: 100px;
+  width: 220px;
   display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+main {
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  width: 90vw;
+  margin:auto;
+  margin-top: 10vh;
+  min-height: 500px;
+  align-items: center;
 }
 
 #page-title{
   color: rgb(182, 182, 182);
+  font-family: "Bebas Neue", "Arial";
+  font-size: 7em;
+  margin: auto;
+  margin-top: 2vh;
+  text-shadow: 10px 10px black;
+
 }
 
 footer{
@@ -43,12 +59,24 @@ footer{
   margin: auto;
 }
 
+.menu-button{
+  margin: auto;
+  width: 90%;
+  height: 60px;
+  background: rgba(20,100,200,0.8);
+  border:none;
+  color: black;
+}
+
+.menu-button:hover{
+  background: rgba(20,100,200,1);
+}
+
 #game-display{
   display: none; /*flex*/
-  background-color: rgba(0,0,0,0.5);
+  /* background-color: rgba(0,0,0,0.5); */
   flex-flow: column;
-  margin: auto;
-  margin-top: 100px;
+  margin-left: 200px;
   color: rgb(209, 209, 209);
 }
 
@@ -58,7 +86,7 @@ footer{
 }
 
 #player-turn-title{
-  margin: auto;
+  margin: 0;
 }
 
 .board{

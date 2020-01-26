@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
   <link href="main.css" rel="stylesheet" type='text/css'>
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  -->
-  <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js">
-  </script>  
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js">
+  </script>
   <script src="/js/helpers.js"></script>
   <script src="/js/board.js"></script>
   <script src="/js/placingPhase.js"></script>
@@ -18,41 +19,52 @@
   <script src="/js/index.js"></script>
   <title>Battleship</title>
 </head>
+
 <body>
-  <h1 id="page-title" class="text-center">BATTLESHIPS!</h1>
+  <h1 id="page-title">BATTLESHIPS!</h1>
 
-  <div id="start-menu">
-    <!-- <div class="btn-group btn-group-lg" role="group"> -->
-      <button id="start-game-btn" class="btn btn-primary">Start</button>
-    <!-- </div> -->
-  </div>
+  <main>
 
-  <div id="game-display">
-    <h2 id="player-turn-title" class="playerTurn"></h2>
-    <div id="dual-board-container">
-      <div id="board-container">
-        <h4 id='board-title'></h4>
-        <section id="board" class="board">
-        </section>  
+    <div id="start-menu">
+      <button class="menu-button" id="start-game-btn">Start</button>
+      <button class="menu-button">Start</button>
+      <button class="menu-button">Start</button>
+      <button class="menu-button">Start</button>
+      <button class="menu-button">Start</button>
+    </div>
+
+    <div id="game-display">
+      <h2 id="player-turn-title" class="playerTurn"></h2>
+      <div id="dual-board-container">
+        <div id="board-container">
+          <h4 id='board-title'></h4>
+          <section id="board" class="board">
+          </section>
+        </div>
+        <div id="display-board-container">
+          <h4 id='display-board-title'></h4>
+          <section id="displayBoard" class="board">
+          </section>
+        </div>
       </div>
-      <div id="display-board-container">
-        <h4 id='display-board-title'></h4>
-        <section id="displayBoard" class="board">
-        </section>
+      <button id="end-turn-button">End Turn</button>
+    </div>
+
+    <div id="modal">
+      <div id="turn-change-menu">
+        <h3 id="modal-title">Player 1 Turn</h3>
+        <button id="new-turn-button">Ok!</button>
       </div>
     </div>
-    <button id="end-turn-button">End Turn</button>
-  </div>
 
-  <div id="modal">
-    <div id="turn-change-menu">
-      <h3 id="modal-title">Player 1 Turn</h3>
-      <button id="new-turn-button">Ok!</button>
-    </div>
-  </div>
+  </main>
 
-<footer class="fixed-bottom font-small blue pt-4">
-    Image by <a href="https://pixabay.com/users/12019-12019/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=168884">David Mark</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=168884">Pixabay</a>   
-</footer>
+  <footer>
+    Image by <a
+      href="https://pixabay.com/users/12019-12019/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=168884">David
+      Mark</a> from <a
+      href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=168884">Pixabay</a>
+  </footer>
 </body>
+
 </html>

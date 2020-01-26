@@ -28,7 +28,6 @@ const endGame = () => {
 
 const setGameMenu = () => {
   $('#start-game-btn').on('click', (event) => {
-    $('#start-menu').css('display', 'none');
     $('#game-display').css('display', 'flex');
     state.playPhase = "placePhase";
     beginPlacementPhase();
@@ -61,3 +60,4 @@ const handleTurnEnd = () => {
     toggleModal(`${state.playerTurn + 1}'s turn`, true);
   }
 }
+
