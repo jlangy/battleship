@@ -53,3 +53,13 @@ resetState = () => {
     }
   }
 }
+
+pickRandomSquare = () => {
+  const xCoord = Math.floor(Math.random() * 10);
+  const yCoord = Math.floor(Math.random() * 10);
+  return [xCoord, yCoord];
+}
+
+pickRandomOrientation = () => Math.floor(Math.random() * 4);
+
+console.log(pickRandomOrientation());

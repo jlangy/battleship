@@ -1,9 +1,9 @@
 const shipLengths = [
   {name: 'carrier', length: 5},
-  // {name: 'battleship', length: 4},
-  // {name: 'cruiser', length: 3},
-  // {name: 'submarine', length: 3},
-  // {name: 'destroyer', length: 2}
+  {name: 'battleship', length: 4},
+  {name: 'cruiser', length: 3},
+  {name: 'submarine', length: 3},
+  {name: 'destroyer', length: 2}
 ]
 
 const isPlacable = function(square, board){
@@ -70,21 +70,36 @@ const incrementPlacePhase = () => {
   if(state.selectedShip < shipLengths.length - 1){
     state.selectedShip += 1;
   } else {
+    disableBoard();
     if (state.opponentType === 'Human'){
       if(state.playerTurn === 0){
-        disableBoard();
         state.turnComplete = true;
       } else {
-        disableBoard();
         state.turnComplete = true;
         state.playPhase = 'transition';
       }
     } else {
+      state.selectedShip = 0;
       placeAIShips();
       state.turnComplete = true;
-      state.playPhase = 'transition'
+      state.playPhase = 'transition';
     }
   }
+}
+
+const placeAIShips = () => {
+  for(let ship of shipLengths){
+    let placed = false;
+    while(!placed){
+      const square = pickRandomSquare();
+      state.shipOrientation = pickRandomOrientation();
+      if(place(square, state.p2Board)){
+        placed = true;
+      }
+    }
+    state.selectedShip = state.selectedShip + 1;
+  }
+  console.log('done', state.p2Board.ships)
 }
 
 const toggleModal = (msg, turnOn) => {
