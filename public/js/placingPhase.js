@@ -77,16 +77,13 @@ const incrementPlacePhase = () => {
       state.selectedShip = 0;
       renderBoard();
       addPlacementListeners();
-      alert('Player 2 turn');
-      // toggleModal("Player 2 Place Ships", true);
+      toggleModal("Player 2 Place Ships", true);
     } else {
       state.playPhase = 'gamePlay';
-      state.playerTurn = 0;
       state.currentBoard = "p1Board";
       state.opponentBoard = "p2Board";
-      alert('Begin');
       beginPlayPhase();
-      // toggleModal("Start!", true);
+      toggleModal("Start!", true);
     }
   }
 }
@@ -98,7 +95,7 @@ const toggleModal = (msg, turnOn) => {
   } else {
     $('#modal').css("display", "none");
   }
-  $('#new-turn-button').focus();
+  // $('#new-turn-button').focus();
 }
 
 const addPlacementListeners = () => {

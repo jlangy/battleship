@@ -34,6 +34,7 @@ const shootSquare = function(square){
     colorSquare(square, 'missSquare');
   }
   changeTurn();
+  toggleModal(`${state.playerTurn}'s turn`, true);
 }
 
 const changeTurnState = () => {
@@ -48,6 +49,7 @@ const updatePlayerBoards = () => {
   $('#board').empty();
   renderBoard();
   renderDisplayBoard();
+  addPlayPhaseListeners();
 }
 
 const changeTurn = () => {
@@ -55,6 +57,7 @@ const changeTurn = () => {
   $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
   // toggleModal(`${state.playerTurn + 1}'s turn`, true);
   updatePlayerBoards();
+  console.log(state.opponentBoard, "opponents board");
 }
 
 const addPlayPhaseListeners = () => {
@@ -67,14 +70,13 @@ const shootSquareHandler = (event) => {
 }
 
 const beginPlayPhase = () => {
+  state.playerTurn = 0;
   $('#board').off();
   $('#display-board-container').css('display', 'unset');
-  state.playPhase = "gamePlay";
   $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
   renderBoard();
   renderDisplayBoard();
   $('#board-title').text("Opponent's board. \n Shoot at it");
   $('#display-board-title').text("Your board. \n Dont shoot at it");
-  $('#board').off();
   addPlayPhaseListeners();
 }

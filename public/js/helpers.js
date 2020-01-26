@@ -19,5 +19,3 @@ const getPlayerSquares = function(player){
 const getSquareFromId = idStr => [Number(idStr[0]), Number(idStr[1])];
 
 const getIdFromSquare = square => "#" + String(square[0]) + String(square[1]);
-
-console.log(getIdFromSquare([1,2]));

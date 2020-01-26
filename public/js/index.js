@@ -29,13 +29,14 @@ const setGameMenu = () => {
   $('#start-game-btn').on('click', (event) => {
     $('#start-menu').css('display', 'none');
     $('#game-display').css('display', 'flex');
+    state.playPhase = "placePhase";
     beginPlacementPhase();
   });
 }
 
 $(document).ready(() => {
   $('#new-turn-button').on("click", () => {
-    toggleModal(null, false);
+    toggleModal('', false);
   });
   setGameMenu();
 });
