@@ -28,34 +28,44 @@ const shootSquare = function(square){
   if(hasSquare(opponentShipSquares, square)){
     state[currentBoard].hitSquares.push(square);
     colorSquare(square, 'hitSquare');
+    updateDialogue(square, 1, `${state.playerTurn ? "P2" : "P1"}`);
     checkSunk();
   } else {
     state[currentBoard].missSquares.push(square);
     colorSquare(square, 'missSquare');
+    updateDialogue(square, 0, `${state.playerTurn ? "P2" : "P1"}`);
   }
   //End of turn. Wait for button click to put up blinder
   disableBoard();
   state.turnComplete = true;
+  //JUST ADDED FOR SPEEEEEEED!!!!!
+  switchPlayers();
+  handleTurnEnd();
 }
 
 const playAITurn = () => {
-  console.log('begin playAITUrn')
   let alreadyShot = true;
   while(alreadyShot){
     const square = pickRandomSquare();
     if(!hasSquare(state.p2Board.hitSquares, square) && !hasSquare(state.p2Board.missSquares, square)){
-      console.log('Made it here!')
       const playerShipSquares = getPlayerSquares(state.p1Board.ships);
       if(hasSquare(playerShipSquares, square)){
         state.p2Board.hitSquares.push(square);
+        updateDialogue(square, 1, "AI");
+        checkSunk();
       } else {
         state.p2Board.missSquares.push(square);
+        updateDialogue(square, 0, "AI");
+
       }
       alreadyShot = false;
     }
   }
-  console.log('No error in playAITurn')
+  switchPlayers();
+}
 
+const updateDialogue = (square, result, player) => {
+  $('#dialogue-box').prepend(`<p>${player} shot ${square} and ${result ? "hit!" : "missed"} </p>`);
 }
 
 const updatePlayerBoards = () => {

@@ -37,6 +37,7 @@ main {
   margin-top: 10vh;
   min-height: 500px;
   align-items: center;
+  justify-content: space-between;
 }
 
 #page-title{
@@ -71,6 +72,14 @@ footer{
 /* .menu-button:hover{
   background: rgba(20,100,200,1);
 } */
+#dialogue-box{
+  width: 300px;
+  background: red;
+  margin: 20px;
+  height:400px;
+  overflow-y: scroll;
+}
+
 
 #game-display{
   display: none; /*flex*/

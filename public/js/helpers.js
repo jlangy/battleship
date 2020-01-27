@@ -54,6 +54,16 @@ resetState = () => {
   }
 }
 
+const generateRandomString = (numOfDigits) => {
+  const alphaNums = 'QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm1234567890'.split('');
+  let randomNum = '';
+  for (let i = 0; i < numOfDigits; i++) {
+    const randomIndex = Math.floor(Math.random() * 62);
+    randomNum += alphaNums[randomIndex];
+  }
+  return randomNum;
+};
+
 pickRandomSquare = () => {
   const xCoord = Math.floor(Math.random() * 10);
   const yCoord = Math.floor(Math.random() * 10);
@@ -61,3 +71,6 @@ pickRandomSquare = () => {
 }
 
 pickRandomOrientation = () => Math.floor(Math.random() * 4);
+
+
+module.exports = generateRandomString;

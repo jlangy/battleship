@@ -50,6 +50,7 @@ $(document).ready(() => {
 });
 
 const handleAITurnEnd = () => {
+  console.log('handleAITurnEnd', state.playPhase)
   if(state.playPhase === 'transition'){
     state.selectedShip = 0;
     placeAIShips();
@@ -57,7 +58,7 @@ const handleAITurnEnd = () => {
     state.playPhase = "gamePlay";
     updatePlayerBoards();
   } else if(state.playPhase === "gamePlay"){
-    console.log(state.playerTurn, state.currentBoard, state.opponentBoard);
+    console.log(getPlayerSquares(state.p2Board.ships));
     playAITurn();
     updatePlayerBoards();
   }
@@ -80,8 +81,8 @@ const handleTurnEnd = () => {
         state.playPhase = "gamePlay";
         changeTurn();
       }
+      toggleModal(`${state.playerTurn + 1}'s turn`, true);
     }
-    toggleModal(`${state.playerTurn + 1}'s turn`, true);
   }
 }
 
