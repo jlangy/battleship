@@ -49,17 +49,25 @@ $(document).ready(() => {
   setGameMenu();
 });
 
+const handleAITurnEnd = () => {
+  if(state.playPhase === 'transition'){
+    state.selectedShip = 0;
+    placeAIShips();
+    beginPlayPhase();
+    state.playPhase = "gamePlay";
+    updatePlayerBoards();
+  } else if(state.playPhase === "gamePlay"){
+    console.log(state.playerTurn, state.currentBoard, state.opponentBoard);
+    playAITurn();
+    updatePlayerBoards();
+  }
+}
+
 const handleTurnEnd = () => {
   if(state.turnComplete){
     state.turnComplete = false;
     if(state.opponentType === "AI"){
-      if(state.playPhase === 'transition'){
-        state.selectedShip = 0;
-        placeAIShips();
-        beginPlayPhase();
-        state.playPhase = "gamePlay";
-        updatePlayerBoards();
-      }
+      handleAITurnEnd();
     } else {
       if(state.playPhase === "placePhase"){
         switchPlayers();
@@ -76,4 +84,5 @@ const handleTurnEnd = () => {
     toggleModal(`${state.playerTurn + 1}'s turn`, true);
   }
 }
+
 

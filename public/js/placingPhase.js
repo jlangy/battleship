@@ -97,7 +97,6 @@ const placeAIShips = () => {
     }
     state.selectedShip = state.selectedShip + 1;
   }
-  console.log('done', state.p2Board.ships)
 }
 
 const toggleModal = (msg, turnOn) => {

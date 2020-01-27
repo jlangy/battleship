@@ -61,5 +61,3 @@ pickRandomSquare = () => {
 }
 
 pickRandomOrientation = () => Math.floor(Math.random() * 4);
-
-console.log(pickRandomOrientation());

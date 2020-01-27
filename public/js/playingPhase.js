@@ -38,6 +38,26 @@ const shootSquare = function(square){
   state.turnComplete = true;
 }
 
+const playAITurn = () => {
+  console.log('begin playAITUrn')
+  let alreadyShot = true;
+  while(alreadyShot){
+    const square = pickRandomSquare();
+    if(!hasSquare(state.p2Board.hitSquares, square) && !hasSquare(state.p2Board.missSquares, square)){
+      console.log('Made it here!')
+      const playerShipSquares = getPlayerSquares(state.p1Board.ships);
+      if(hasSquare(playerShipSquares, square)){
+        state.p2Board.hitSquares.push(square);
+      } else {
+        state.p2Board.missSquares.push(square);
+      }
+      alreadyShot = false;
+    }
+  }
+  console.log('No error in playAITurn')
+
+}
+
 const updatePlayerBoards = () => {
   renderBoard();
   renderDisplayBoard();
