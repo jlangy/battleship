@@ -16,13 +16,18 @@
   text-decoration: line-through;
 }
 
+.board-title{
+  text-align: center;
+  font-size:1.4em;
+  margin:0;
+}
 
 #game-display{
   display: none; /*flex*/
   /* background-color: rgba(0,0,0,0.5); */
   flex-flow: column;
-  margin-left: 200px;
-  color: rgb(209, 209, 209);
+  color: rgb(182, 182, 182);
+  font-family: "Bebas Neue", "Arial";
 }
 
 #dual-board-container{
@@ -32,34 +37,25 @@
 }
 
 #player-turn-title{
-  margin: 0;
+  margin: auto;
+  font-size: 1.4em;
 }
 
 .board{
   margin: 20px;
+  width: var(--board-dimension);
+  height: var(--board-dimension);
+  display: grid;
+  grid-template-columns: repeat(11, var(--square-dimension));
+  grid-template-rows: repeat(11, var(--square-dimension));
 }
 
 #display-board-container{
   display: none;
 }
 
-#board{
-  width: var(--board-dimension);
-  height: var(--board-dimension);
-  display: grid;
-  grid-template-columns: repeat(11, var(--square-dimension));
-  grid-template-rows: repeat(11, var(--square-dimension));
-  margin: 0;
-  margin-bottom: 10px;
-  /* background-color: black; */
-}
-
-#displayBoard{
-  width: var(--board-dimension);
-  height: var(--board-dimension);
-  display: grid;
-  grid-template-columns: repeat(11, var(--square-dimension));
-  grid-template-rows: repeat(11, var(--square-dimension));
-  padding: 0;
-  /* background-color: black; */
+#end-turn-button {
+  width: 150px;
+  margin: auto;
+  background-color: rgba(20,100,200,0.8);
 }

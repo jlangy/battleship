@@ -1,5 +1,5 @@
 
-#modal{
+#blinder{
   display: none;
   width: 100vw;
   height: 100vh;
@@ -14,10 +14,15 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  color: rgb(182, 182, 182);
+  font-family: "Bebas Neue", "Arial";
+  border: 2px solid rgb(0, 179, 0);
+  width: 400px;
+  padding: 30px;
 }
-#modal-title{
-  color: white;
+#blinder-title{
+  font-size: 2em;
 }
 #new-turn-button{
-  width: 50%;
+  width: 100px;
 }

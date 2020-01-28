@@ -24,6 +24,13 @@ main {
   justify-content: space-between;
 }
 
+button {
+  background-color: rgba(20,100,200,0.8);
+  font-weight: bold;
+  border: 2px solid rgba(200,200,200,0.3);
+  color: black;
+}
+
 #page-title{
   color: rgb(182, 182, 182);
   font-family: "Bebas Neue", "Arial";
