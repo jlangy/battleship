@@ -39,8 +39,8 @@ const shootSquare = function(square){
   disableBoard();
   state.turnComplete = true;
   //JUST ADDED FOR SPEEEEEEED!!!!!
-  switchPlayers();
-  handleTurnEnd();
+  // switchPlayers();
+  // handleTurnEnd();
 }
 
 const playAITurn = () => {

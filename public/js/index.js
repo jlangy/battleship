@@ -33,7 +33,6 @@ const endGame = () => {
                           <button type='submit'>Submit</button>
                           </form>
                         </div> `
-  console.log(gameEndHTML);
   $('main').append(gameEndHTML);
 }
 

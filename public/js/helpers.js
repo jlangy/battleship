@@ -21,6 +21,10 @@ const getSquareFromId = idStr => idStr ? [Number(idStr[0]), Number(idStr[1])] : 
 const getIdFromSquare = square => "#" + String(square[0]) + String(square[1]);
 
 const switchPlayers = () => {
+  if(state.playerTurn === 1){
+    state.turns += 1; 
+  }
+  console.log(state.turns);
   const tempPlayerBoard = state.currentBoard;
   state.selectedShip = 0;
   state.currentBoard = state.opponentBoard;
