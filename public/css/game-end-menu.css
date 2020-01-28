@@ -3,10 +3,11 @@
   display: flex;
   flex-flow: column;
   justify-content: space-around;
+  border: 5px solid rgb(182, 182, 182);
 }
 
 #gameEndForm h2 {
-  color:reg(0,179,0);
+  color:rgb(0,179,0);
   font-family: monospace;
   text-align: center;
 }
@@ -27,4 +28,15 @@
   margin-top: -150px;
   margin-left:-250px;
   background-color: black;
+}
+
+form input[type="radio"]{
+  display:none;
+}
+
+form input[type='text']{
+  border: 2px solid rgb(0,179,0);
+  margin: 10px;
+  background-color: black;
+  color: rgb(0,179,0);
 }
