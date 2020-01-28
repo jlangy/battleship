@@ -51,7 +51,7 @@
   grid-template-rows: repeat(11, var(--square-dimension));
   margin: 0;
   margin-bottom: 10px;
-  background-color: black;
+  /* background-color: black; */
 }
 
 #displayBoard{
@@ -61,4 +61,5 @@
   grid-template-columns: repeat(11, var(--square-dimension));
   grid-template-rows: repeat(11, var(--square-dimension));
   padding: 0;
+  /* background-color: black; */
 }
