@@ -82,7 +82,7 @@ const changeTurn = () => {
 }
 
 const addPlayPhaseListeners = () => {
-  $('#board').on('click', shootSquareHandler);
+  $('#board>.square').on('click', shootSquareHandler);
 }
 
 const shootSquareHandler = (event) => {

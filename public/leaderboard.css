@@ -1,0 +1,37 @@
+body{
+  background-image: url('img/submarine-168884_1920.jpg');
+}
+
+#leaderboard{
+  background-color: rgba(0,0,0,0.8);
+  height: 800px;
+  width: 600px;
+  margin:auto;
+  margin-top: 100px;
+  overflow-y: scroll;
+}
+
+p, h2 {
+  color: rgb(0,179,0);
+  font-family: monospace;
+  border-bottom: 3px dotted rgb(0,179,0);
+  padding:0;
+  margin: 0 10px 0 10px;
+  padding-bottom: 5px;
+
+}
+
+h2{
+  text-align: center;
+  font-size: 3em;
+}
+
+p {
+  display: flex;
+  justify-content: space-around;
+  font-size: 2em;
+}
+
+span{
+  width: 100px;
+}

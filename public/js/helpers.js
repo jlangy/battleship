@@ -29,7 +29,8 @@ const switchPlayers = () => {
 }
 
 resetState = () => {
-  state = state = {
+  state = {
+    turns: 0,
     playPhase: null,
     hoverSquare: null,
     turnComplete: false,

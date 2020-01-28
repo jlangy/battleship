@@ -1,4 +1,5 @@
 state = {
+  turns: 0,
   playPhase: null,
   hoverSquare: null,
   turnComplete: false,
@@ -22,27 +23,28 @@ state = {
   }
 }
 
-const gameEndHTML = `<div id="gameEndForm">
-<h2>Score: </h2>
-<form action="register" method="POST">
-  <input type="text" placeholder="username" name="username">
-  <button type='submit'>Submit</button>
-</form>
-</div> `
+
 
 const endGame = () => {
+  const gameEndHTML = `<div id="gameEndForm">
+                          <form action="register" method="POST">
+                          <h2>Score: </h2> <input type="radio" name="score" value=${state.turns} checked>
+                          <input type="text" placeholder="username" name="username">
+                          <button type='submit'>Submit</button>
+                          </form>
+                        </div> `
+  console.log(gameEndHTML);
   $('main').append(gameEndHTML);
 }
 
 const setGameMenu = () => {
   $('#start-game-btn').on('click', (event) => {
-    endGame();
-    // clearBoard();
-    // resetState();
-    // state.opponentType = $('.selected').attr('data-opponent');
-    // $('#game-display').css('display', 'flex');
-    // state.playPhase = "placePhase";
-    // beginPlacementPhase();
+    clearBoard();
+    resetState();
+    state.opponentType = $('.selected').attr('data-opponent');
+    $('#game-display').css('display', 'flex');
+    state.playPhase = "placePhase";
+    beginPlacementPhase();
   });
   $('#human-opponent, #AI-opponent').on('click', () => {
     $('#human-opponent').toggleClass('selected');
@@ -75,6 +77,9 @@ const handleTurnEnd = () => {
   if(state.turnComplete){
     state.turnComplete = false;
     if(state.opponentType === "AI"){
+      console.log(state.turns);
+      state.turns = state.turns + 1;
+      console.log(state.turns);
       handleAITurnEnd();
     } else {
       if(state.playPhase === "placePhase"){

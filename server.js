@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const {scores} = require('./data');
 
 
+
 app.use(cookieSession({
   name: 'session',
   keys: ['key1', 'key2']
@@ -22,20 +23,22 @@ app.use((req,res,next) => {
 });
 
 app.use(express.static('public'));
-
+app.set('view engine', 'ejs');
 //Set up a post request with a form (button) to enter username
 //that will make a cookie. At the end of game, have a won game
 //menu that can send a post request to add it to leaderboard
 //using the cookie
 
 app.post('/register', (req,res) => {
-  const username = req.body.username;
-  scores[username] = 0;
+  const { username, score } = req.body;
+  scores.push({username, score})
   res.redirect('/leaderboard');
 });
 
 app.get('/leaderboard', (req,res) => {
-  res.send(JSON.stringify(scores));
+  // res.send(JSON.stringify(scores));
+  const templateVars = {scores};
+  res.render('leaderboard', templateVars);
 });
 
 
