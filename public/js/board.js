@@ -99,6 +99,17 @@ const disableBoard = () => {
   $('body').off();
 }
 
+const renderShips = (playerShips) => {
+  for(const ship of shipLengths){
+    console.log(ship.name, playerShips)
+    if(Object.keys(playerShips).includes(ship.name)){
+      $('#ships').append(`<p class="displayShipAlive">${ship.name}</p>`);
+    } else {
+      $('#ships').append(`<p class="displayShipSunk">${ship.name}</p>`);
+    }
+  }
+}
+
 const clearBoard = () => {
   disableBoard();
   $('#display-board-container').css('display', 'none');

@@ -32,7 +32,7 @@ const endGame = () => {
                           <input type="text" placeholder="username" name="username">
                           <button type='submit'>Submit</button>
                           </form>
-                        </div> `
+                        </div>`
   $('main').append(gameEndHTML);
 }
 
@@ -73,21 +73,22 @@ const handleAITurnEnd = () => {
 }
 
 const handleTurnEnd = () => {
-  console.log(state.p1Board.ships, state.p2Board.ships);
   if(state.turnComplete){
     state.turnComplete = false;
+    $('#ships').empty();
     if(state.opponentType === "AI"){
-      console.log(state.turns);
       state.turns = state.turns + 1;
-      console.log(state.turns);
       handleAITurnEnd();
     } else {
       if(state.playPhase === "placePhase"){
         switchPlayers();
+        $('#board-title').text(`Player ${state.playerTurn + 1} place ships`)
         renderBoard();
+        renderShips(state[state.currentBoard].ships);
         addPlacementListeners();
       } else if(state.playPhase === "gamePlay"){
         changeTurn();
+        renderShips(state[state.currentBoard].ships);
       } else if(state.playPhase == "transition"){
         beginPlayPhase();
         state.playPhase = "gamePlay";

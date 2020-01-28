@@ -2,8 +2,7 @@ const checkSunk = function(){
   //go through hit squares in player board
   const hitSquares = state[state.currentBoard].hitSquares;
   const opponentShips = state[state.opponentBoard].ships;
-  const opponentShipKeys = Object.keys(opponentShips);
-  for(shipKey of opponentShipKeys){
+  for(shipKey of Object.keys(opponentShips)){
     if(opponentShips[shipKey].every(square => hasSquare(hitSquares, square))){
       delete opponentShips[shipKey];
       if (Object.keys(opponentShips).length === 0){
@@ -19,12 +18,12 @@ const colorSquare = (square, cssClass) => {
 }
 
 const shootSquare = function(square){
-  if(hasSquare(state[state.currentBoard].hitSquares, square) || hasSquare(state[state.currentBoard].missSquares, square)){
+  const currentBoard = state.currentBoard;
+  if(hasSquare(state[currentBoard].hitSquares, square) || hasSquare(state[currentBoard].missSquares, square)){
     alert('Already shot!');
     return;
   }
   const opponentShipSquares = getPlayerSquares(state[state.opponentBoard].ships);
-  const currentBoard = state.currentBoard;
   if(hasSquare(opponentShipSquares, square)){
     state[currentBoard].hitSquares.push(square);
     colorSquare(square, 'hitSquare');

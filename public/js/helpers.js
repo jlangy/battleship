@@ -24,12 +24,18 @@ const switchPlayers = () => {
   if(state.playerTurn === 1){
     state.turns += 1; 
   }
-  console.log(state.turns);
   const tempPlayerBoard = state.currentBoard;
   state.selectedShip = 0;
   state.currentBoard = state.opponentBoard;
   state.opponentBoard = tempPlayerBoard;
   state.playerTurn = Number(!state.playerTurn);
+}
+
+const toggleModal = (msg, turnOn) => {
+  $('#modal-title').text(msg);
+  modalDipslay = turnOn ? "flex" : "none";
+  $('#modal').css("display", modalDipslay);
+  $('#new-turn-button').focus();
 }
 
 resetState = () => {

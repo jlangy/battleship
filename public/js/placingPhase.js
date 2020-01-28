@@ -1,7 +1,7 @@
 const shipLengths = [
-  {name: 'carrier', length: 5},
-  {name: 'battleship', length: 4},
-  {name: 'cruiser', length: 3},
+  // {name: 'carrier', length: 5},
+  // {name: 'battleship', length: 4},
+  // {name: 'cruiser', length: 3},
   {name: 'submarine', length: 3},
   {name: 'destroyer', length: 2}
 ]
@@ -18,7 +18,7 @@ const place = function(square, playerBoard){
     playerBoard.ships[shipName] = shipSquares;
     for(shipSquare of shipSquares){
       playerBoard.availableSquares = playerBoard.availableSquares.filter(boardSquare => !equalSquares(boardSquare, shipSquare));
-    }
+    } 
     return true;
   } return false
 }
@@ -87,13 +87,6 @@ const placeAIShips = () => {
     }
     state.selectedShip += 1;
   }
-}
-
-const toggleModal = (msg, turnOn) => {
-  $('#modal-title').text(msg);
-  modalDipslay = turnOn ? "flex" : "none";
-  $('#modal').css("display", modalDipslay);
-  $('#new-turn-button').focus();
 }
 
 const addPlacementListeners = () => {
