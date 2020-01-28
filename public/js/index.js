@@ -25,7 +25,7 @@ state = {
 const gameEndHTML = `<div id="gameEndForm">
 <h2>Score: </h2>
 <form action="register" method="POST">
-  <input type="text" placeholder="username">
+  <input type="text" placeholder="username" name="username">
   <button type='submit'>Submit</button>
 </form>
 </div> `
