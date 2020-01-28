@@ -15,7 +15,6 @@ const place = function(square, playerBoard){
   if(isPlacable(square, playerBoard)){
     const shipName = shipLengths[state.selectedShip].name;
     const shipSquares = findShipsOccupiedSquares(square);
-    //Not allowing multiple ships currently, so can writeover
     playerBoard.ships[shipName] = shipSquares;
     for(shipSquare of shipSquares){
       playerBoard.availableSquares = playerBoard.availableSquares.filter(boardSquare => !equalSquares(boardSquare, shipSquare));
@@ -70,16 +69,11 @@ const incrementPlacePhase = () => {
   if(state.selectedShip < shipLengths.length - 1){
     state.selectedShip += 1;
   } else {
+    //Pause board so player can see outcome of shot. Will resume on turn change button.
     disableBoard();
-    if (state.opponentType === 'Human'){
-      if(state.playerTurn === 0){
-        state.turnComplete = true;
-      } else {
-        state.turnComplete = true;
-        state.playPhase = 'transition';
-      }
-    } else {
-      state.turnComplete = true;
+    state.turnComplete = true;
+    console.log('increment phase: ', state.opponentType, state.playerTurn);
+    if (state.opponentType === 'AI' || state.playerTurn === 1){
       state.playPhase = 'transition';
     }
   }

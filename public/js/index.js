@@ -73,6 +73,7 @@ const handleAITurnEnd = () => {
 }
 
 const handleTurnEnd = () => {
+  console.log(state.playPhase);
   if(state.turnComplete){
     state.turnComplete = false;
     if(state.opponentType === "AI"){
