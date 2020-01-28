@@ -1,9 +1,6 @@
-#start-game-btn {
-  margin: auto;
-}
+
 
 .menu-button{
-  margin: auto;
   width: 90%;
   height: 60px;
 }
@@ -11,6 +8,7 @@
 #opponent-select{
   width: 100%;
   text-align: center;
+  margin-top: 10px;
 }
 
 #opponent-select button {
