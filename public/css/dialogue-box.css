@@ -1,0 +1,19 @@
+#ship-log{
+  width: 300px;
+  color: rgb(0, 179, 0);
+  font-family: monospace;
+  margin: 20px;
+  height:400px;
+  overflow-y: scroll;
+  background-color: #000000;
+  box-shadow: 1px 1px 2px 2px gray;
+}
+
+#dialogue-box p{
+  border-bottom: 1px solid black;
+  padding-left: 5px;
+}
+
+#ship-log h2 {
+  padding-left: 5px;
+}

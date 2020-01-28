@@ -1,0 +1,41 @@
+:root {
+  --square-dimension: 30px;
+  --board-dimension: calc(var(--square-dimension) * 11);
+}
+
+html{
+  height: 100%;
+}
+
+body{
+  background-image: url('../img/submarine-168884_1920.jpg');
+  display: flex;
+  flex-flow: column;
+}
+
+main {
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  width: 90vw;
+  margin:auto;
+  margin-top: 10vh;
+  min-height: 500px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#page-title{
+  color: rgb(182, 182, 182);
+  font-family: "Bebas Neue", "Arial";
+  font-size: 7em;
+  margin: auto;
+  margin-top: 2vh;
+  text-shadow: 10px 10px black;
+
+}
+
+footer{
+  position: absolute;
+  bottom:0;
+  background-color: white;
+}

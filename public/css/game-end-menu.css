@@ -1,0 +1,30 @@
+
+#gameEndForm{
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+}
+
+#gameEndForm h2 {
+  color:reg(0,179,0);
+  font-family: monospace;
+  text-align: center;
+}
+
+#gameEndForm form{
+  display:flex;
+  flex-flow: column;
+  margin:auto;
+  width: 50%;
+}
+
+#gameEndForm{
+  position: absolute;
+  top: 50vh;
+  left:50vw;
+  width:500px;
+  height: 300px;
+  margin-top: -150px;
+  margin-left:-250px;
+  background-color: black;
+}
