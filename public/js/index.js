@@ -73,7 +73,7 @@ const handleAITurnEnd = () => {
 }
 
 const handleTurnEnd = () => {
-  console.log(state.playPhase);
+  console.log(state.p1Board.ships, state.p2Board.ships);
   if(state.turnComplete){
     state.turnComplete = false;
     if(state.opponentType === "AI"){

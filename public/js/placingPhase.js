@@ -1,8 +1,8 @@
 const shipLengths = [
-  // {name: 'carrier', length: 5},
-  // {name: 'battleship', length: 4},
-  // {name: 'cruiser', length: 3},
-  // {name: 'submarine', length: 3},
+  {name: 'carrier', length: 5},
+  {name: 'battleship', length: 4},
+  {name: 'cruiser', length: 3},
+  {name: 'submarine', length: 3},
   {name: 'destroyer', length: 2}
 ]
 
@@ -20,9 +20,7 @@ const place = function(square, playerBoard){
       playerBoard.availableSquares = playerBoard.availableSquares.filter(boardSquare => !equalSquares(boardSquare, shipSquare));
     }
     return true;
-  } else{
-    return false
-  }
+  } return false
 }
 
 //Takes in a square. Returns an array of all squares the selected ship would
@@ -69,10 +67,10 @@ const incrementPlacePhase = () => {
   if(state.selectedShip < shipLengths.length - 1){
     state.selectedShip += 1;
   } else {
-    //Pause board so player can see outcome of shot. Will resume on turn change button.
+    //Last ship placed. Pause board to let player end turn
     disableBoard();
     state.turnComplete = true;
-    console.log('increment phase: ', state.opponentType, state.playerTurn);
+    //transition phase used for end turn button to move into play phase
     if (state.opponentType === 'AI' || state.playerTurn === 1){
       state.playPhase = 'transition';
     }
@@ -85,22 +83,16 @@ const placeAIShips = () => {
     while(!placed){
       const square = pickRandomSquare();
       state.shipOrientation = pickRandomOrientation();
-      if(place(square, state.p2Board)){
-        placed = true;
-      }
+      placed = place(square, state.p2Board);
     }
-    state.selectedShip = state.selectedShip + 1;
+    state.selectedShip += 1;
   }
-  console.log(state.p2Board.ships);
 }
 
 const toggleModal = (msg, turnOn) => {
   $('#modal-title').text(msg);
-  if(turnOn){
-    $('#modal').css("display", "flex");
-  } else {
-    $('#modal').css("display", "none");
-  }
+  modalDipslay = turnOn ? "flex" : "none";
+  $('#modal').css("display", modalDipslay);
   $('#new-turn-button').focus();
 }
 
@@ -111,11 +103,10 @@ const addPlacementListeners = () => {
   $('body').keydown(changeOrientation);
 }
 
+//Calls place and puts ship on board if placable.
 const placeShip = (event) => {
   const clickedSquare = getSquareFromId(event.target.id);
-  if(!clickedSquare) return;
-  const placed = place(clickedSquare, state[state.currentBoard]);
-  if(placed){
+  if(clickedSquare && place(clickedSquare, state[state.currentBoard])){
     renderShipToBoard(clickedSquare);
   }
 }
@@ -127,19 +118,13 @@ const setHover = event => {
   addPlacableCSS(clickedSquare);
 }
 
+//Adds appropriate css class depending on whether the current ship could be placed at the current square
 const addPlacableCSS = (clickedSquare) => {
   const possibleSquares = findShipsOccupiedSquares(clickedSquare);
-  const placable = isPlacable(clickedSquare, state[state.currentBoard]);
-  if(placable){
-    for(let square of possibleSquares){
-      let squareId = getIdFromSquare(square);
-      $(squareId).addClass("placable");
-    }
-  } else {
-    for(let square of possibleSquares){
-      let squareId = getIdFromSquare(square);
-      $(squareId).addClass("notPlacable");
-    }
+  let cssClassToAdd = isPlacable(clickedSquare, state[state.currentBoard]) ? "placable" : "notPlacable";
+  for(let square of possibleSquares){
+    let squareId = getIdFromSquare(square);
+    $(squareId).addClass(cssClassToAdd);
   }
 }
 
@@ -147,7 +132,7 @@ const beginPlacementPhase = () => {
   state.p1Board.availableSquares = generateBoard();
   state.p2Board.availableSquares = generateBoard();
   renderBoard();
-  $('#board-title').text('Place Ships Here');
+  $('#board-title').text(`Player ${state.playerTurn + 1} place ships`);
   addPlacementListeners();
 }
 
@@ -156,8 +141,7 @@ const removePlacableCSS = () => {
   const possibleSquares = findShipsOccupiedSquares(clickedSquare);
   for(let square of possibleSquares){
     let squareId = getIdFromSquare(square);
-    $(squareId).removeClass("placable");
-    $(squareId).removeClass("notPlacable");
+    $(squareId).removeClass("placable notPlacable");
   }
 }
 
