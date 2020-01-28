@@ -65,7 +65,8 @@ const playAITurn = () => {
 }
 
 const updateDialogue = (square, result, player) => {
-  $('#dialogue-box').prepend(`<p>${player} shot ${square} and ${result ? "hit!" : "missed"} </p>`);
+  const letter = "ABCDEFGHIJ"[square[0]];
+  $('#dialogue-box').prepend(`<p>${player} shot ${letter + String(square[1] + 1)} and ${result ? "hit!" : "missed"} </p>`);
 }
 
 const updatePlayerBoards = () => {
@@ -86,7 +87,8 @@ const addPlayPhaseListeners = () => {
 
 const shootSquareHandler = (event) => {
   const clickedSquare = getSquareFromId(event.target.id);
-  shootSquare(clickedSquare);
+  if(clickedSquare)
+    shootSquare(clickedSquare);
 }
 
 const beginPlayPhase = () => {

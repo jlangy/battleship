@@ -16,7 +16,7 @@ const getPlayerSquares = function(player){
   return takenSquares;
 }
 //Given an element id, e.g "11", return it as a square, [1,1]
-const getSquareFromId = idStr => [Number(idStr[0]), Number(idStr[1])];
+const getSquareFromId = idStr => idStr ? [Number(idStr[0]), Number(idStr[1])] : false;
 
 const getIdFromSquare = square => "#" + String(square[0]) + String(square[1]);
 
@@ -71,6 +71,3 @@ pickRandomSquare = () => {
 }
 
 pickRandomOrientation = () => Math.floor(Math.random() * 4);
-
-
-module.exports = generateRandomString;

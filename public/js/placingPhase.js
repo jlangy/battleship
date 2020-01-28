@@ -1,8 +1,8 @@
 const shipLengths = [
-  {name: 'carrier', length: 5},
-  {name: 'battleship', length: 4},
-  {name: 'cruiser', length: 3},
-  {name: 'submarine', length: 3},
+  // {name: 'carrier', length: 5},
+  // {name: 'battleship', length: 4},
+  // {name: 'cruiser', length: 3},
+  // {name: 'submarine', length: 3},
   {name: 'destroyer', length: 2}
 ]
 
@@ -97,6 +97,7 @@ const placeAIShips = () => {
     }
     state.selectedShip = state.selectedShip + 1;
   }
+  console.log(state.p2Board.ships);
 }
 
 const toggleModal = (msg, turnOn) => {
@@ -118,6 +119,7 @@ const addPlacementListeners = () => {
 
 const placeShip = (event) => {
   const clickedSquare = getSquareFromId(event.target.id);
+  if(!clickedSquare) return;
   const placed = place(clickedSquare, state[state.currentBoard]);
   if(placed){
     renderShipToBoard(clickedSquare);

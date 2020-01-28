@@ -22,18 +22,27 @@ state = {
   }
 }
 
+const gameEndHTML = `<div id="gameEndForm">
+<h2>Score: </h2>
+<form action="register" method="POST">
+  <input type="text" placeholder="username">
+  <button type='submit'>Submit</button>
+</form>
+</div> `
+
 const endGame = () => {
-  alert(`Player ${state.playerTurn + 1} Has Won the game!`);
+  $('main').append(gameEndHTML);
 }
 
 const setGameMenu = () => {
   $('#start-game-btn').on('click', (event) => {
-    clearBoard();
-    resetState();
-    state.opponentType = $('.selected').attr('data-opponent');
-    $('#game-display').css('display', 'flex');
-    state.playPhase = "placePhase";
-    beginPlacementPhase();
+    endGame();
+    // clearBoard();
+    // resetState();
+    // state.opponentType = $('.selected').attr('data-opponent');
+    // $('#game-display').css('display', 'flex');
+    // state.playPhase = "placePhase";
+    // beginPlacementPhase();
   });
   $('#human-opponent, #AI-opponent').on('click', () => {
     $('#human-opponent').toggleClass('selected');
@@ -50,7 +59,6 @@ $(document).ready(() => {
 });
 
 const handleAITurnEnd = () => {
-  console.log('handleAITurnEnd', state.playPhase)
   if(state.playPhase === 'transition'){
     state.selectedShip = 0;
     placeAIShips();
@@ -58,7 +66,6 @@ const handleAITurnEnd = () => {
     state.playPhase = "gamePlay";
     updatePlayerBoards();
   } else if(state.playPhase === "gamePlay"){
-    console.log(getPlayerSquares(state.p2Board.ships));
     playAITurn();
     updatePlayerBoards();
   }

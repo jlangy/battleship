@@ -24,8 +24,17 @@ const printBoard = function(player){
 const renderBoard = function(){
   $('#board').empty();
   $('#board').off();
+  const coords = "ABCDEFGHIJ".split('');
+  for(let i = 0; i < 11; i++){
+    if(i === 0){
+      $('#board').append('<div class="coordSquare"></div>')
+    } else {
+      $('#board').append(`<div class="coordSquare">${i}</div>`)
+    }
+  }
   for(let i = 0; i < 10; i++){
     let row = i;
+    $('#board').append(`<div class="coordSquare">${coords[i]}</div>`);
     for(let j = 0; j < 10; j++){
       if(state.playPhase === "gamePlay"){
         const currentSquare =  getSquareFromId(`${i}${j}`);
@@ -48,8 +57,17 @@ const renderBoard = function(){
 
 const renderDisplayBoard = function(){
   $('#displayBoard').empty();
+  const coords = "ABCDEFGHIJ".split('');
+  for(let i = 0; i < 11; i++){
+    if(i === 0){
+      $('#displayBoard').append('<div class="coordSquare"></div>')
+    } else {
+      $('#displayBoard').append(`<div class="coordSquare">${i}</div>`)
+    }
+  }
   for(let i = 0; i < 10; i++){
     let row = i;
+    $('#displayBoard').append(`<div class="coordSquare">${coords[i]}</div>`)
     for(let j = 0; j < 10; j++){
       drawDisplaySquare(i,j);
     }
