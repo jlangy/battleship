@@ -1,5 +1,4 @@
 state = {
-  isSubmitted: false,
   turns: 0,
   //tracks if placing ships, playing, or switching between the two
   playPhase: null,
