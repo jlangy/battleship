@@ -20,6 +20,7 @@ const getSquareFromId = idStr => idStr ? [Number(idStr[0]), Number(idStr[1])] : 
 
 const getIdFromSquare = square => "#" + String(square[0]) + String(square[1]);
 
+//changes just the state for the players
 const switchPlayers = () => {
   if(state.playerTurn === 1){
     state.turns += 1; 
@@ -32,9 +33,9 @@ const switchPlayers = () => {
 }
 
 const toggleModal = (msg, turnOn) => {
-  $('#modal-title').text(msg);
+  $('#blinder-title').text(msg);
   modalDipslay = turnOn ? "flex" : "none";
-  $('#modal').css("display", modalDipslay);
+  $('#blinder').css("display", modalDipslay);
   $('#new-turn-button').focus();
 }
 
@@ -64,16 +65,6 @@ resetState = () => {
     }
   }
 }
-
-const generateRandomString = (numOfDigits) => {
-  const alphaNums = 'QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm1234567890'.split('');
-  let randomNum = '';
-  for (let i = 0; i < numOfDigits; i++) {
-    const randomIndex = Math.floor(Math.random() * 62);
-    randomNum += alphaNums[randomIndex];
-  }
-  return randomNum;
-};
 
 pickRandomSquare = () => {
   const xCoord = Math.floor(Math.random() * 10);

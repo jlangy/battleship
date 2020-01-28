@@ -1,6 +1,7 @@
 const checkSunk = function(){
   //go through hit squares in player board
   const hitSquares = state[state.currentBoard].hitSquares;
+  //if its AI, always use p1board
   const opponentShips = state[state.opponentBoard].ships;
   for(shipKey of Object.keys(opponentShips)){
     if(opponentShips[shipKey].every(square => hasSquare(hitSquares, square))){
@@ -19,8 +20,8 @@ const colorSquare = (square, cssClass) => {
 
 const shootSquare = function(square){
   const currentBoard = state.currentBoard;
+  //Do nothing if the square has already been shot
   if(hasSquare(state[currentBoard].hitSquares, square) || hasSquare(state[currentBoard].missSquares, square)){
-    alert('Already shot!');
     return;
   }
   const opponentShipSquares = getPlayerSquares(state[state.opponentBoard].ships);
@@ -37,15 +38,14 @@ const shootSquare = function(square){
   //End of turn. Wait for button click to put up blinder
   disableBoard();
   state.turnComplete = true;
-  //JUST ADDED FOR SPEEEEEEED!!!!!
-  // switchPlayers();
-  // handleTurnEnd();
 }
 
+//shoots random square
 const playAITurn = () => {
-  let alreadyShot = true;
-  while(alreadyShot){
+  let hasntShot = true;
+  while(hasntShot){
     const square = pickRandomSquare();
+    //makes sure square hasnt been hit/missed already
     if(!hasSquare(state.p2Board.hitSquares, square) && !hasSquare(state.p2Board.missSquares, square)){
       const playerShipSquares = getPlayerSquares(state.p1Board.ships);
       if(hasSquare(playerShipSquares, square)){
@@ -55,12 +55,10 @@ const playAITurn = () => {
       } else {
         state.p2Board.missSquares.push(square);
         updateDialogue(square, 0, "AI");
-
       }
-      alreadyShot = false;
+      hasntShot = false;
     }
   }
-  switchPlayers();
 }
 
 const updateDialogue = (square, result, player) => {
@@ -69,14 +67,14 @@ const updateDialogue = (square, result, player) => {
 }
 
 const updatePlayerBoards = () => {
-  renderBoard();
-  renderDisplayBoard();
+  renderBoard($('#board'));
+  renderBoard($('#displayBoard'));
   addPlayPhaseListeners();
 }
 
 const changeTurn = () => {
   switchPlayers();
-  $('#player-turn-title').text(`${state.playerTurn + 1}'s turn`);
+  $('#player-turn-title').text(`Player ${state.playerTurn + 1}'s turn`);
   updatePlayerBoards();
 }
 
@@ -93,6 +91,6 @@ const shootSquareHandler = (event) => {
 const beginPlayPhase = () => {
   state.hoverSquare = null;
   $('#display-board-container').css('display', 'unset');
-  $('#board-title').text("Opponent's board. \n Shoot at it");
-  $('#display-board-title').text("Your board. \n Dont shoot at it");
+  $('#board-title').text("Opponent's board");
+  $('#display-board-title').text("Your board");
 }

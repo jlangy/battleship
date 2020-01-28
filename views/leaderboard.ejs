@@ -11,11 +11,14 @@
 
 <body>
   <div id="leaderboard">
-    <h2>High Scores</h2>
-    <% for(score of scores) { %>
-      <p>
-        <span><%= score.username %> </span> <span><%= score.score %></span>
-      </p>
-    <% } %>
+    <div class="scores">
+      <h2>High Scores</h2>
+      <% for(score of scores) { %>
+        <p>
+          <span><%= score.username %> </span> <span><%= score.score %></span>
+        </p>
+      <% } %>
+    </div>
+    <a href="/"><button>Back To Game</button></a>
   </div>
 </body>

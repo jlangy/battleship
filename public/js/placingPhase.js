@@ -2,14 +2,16 @@ const shipLengths = [
   // {name: 'carrier', length: 5},
   // {name: 'battleship', length: 4},
   // {name: 'cruiser', length: 3},
-  {name: 'submarine', length: 3},
+  // {name: 'submarine', length: 3},
   {name: 'destroyer', length: 2}
 ]
 
+//return true/false if ship could fit on current hoversquare
 const isPlacable = function(square, board){
   const occupiedSquares = findShipsOccupiedSquares(square);
   return occupiedSquares.every(square => hasSquare(board.availableSquares, square));
 }
+
 
 const place = function(square, playerBoard){
   if(isPlacable(square, playerBoard)){
@@ -20,7 +22,8 @@ const place = function(square, playerBoard){
       playerBoard.availableSquares = playerBoard.availableSquares.filter(boardSquare => !equalSquares(boardSquare, shipSquare));
     } 
     return true;
-  } return false
+  }
+  return false
 }
 
 //Takes in a square. Returns an array of all squares the selected ship would
@@ -77,6 +80,7 @@ const incrementPlacePhase = () => {
   }
 }
 
+//AI just waits until random square works, needs work
 const placeAIShips = () => {
   for(let ship of shipLengths){
     let placed = false;
@@ -94,6 +98,7 @@ const addPlacementListeners = () => {
   $('#board').children().mouseover(setHover);
   $('#board').children().mouseout(removePlacableCSS);
   $('body').keydown(changeOrientation);
+  $('#board').mouseout(() => state.hoverSquare = null);
 }
 
 //Calls place and puts ship on board if placable.
@@ -124,7 +129,7 @@ const addPlacableCSS = (clickedSquare) => {
 const beginPlacementPhase = () => {
   state.p1Board.availableSquares = generateBoard();
   state.p2Board.availableSquares = generateBoard();
-  renderBoard();
+  renderBoard($('#board'));
   $('#board-title').text(`Player ${state.playerTurn + 1} place ships`);
   addPlacementListeners();
 }

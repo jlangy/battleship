@@ -1,11 +1,15 @@
 state = {
+  isSubmitted: false,
   turns: 0,
+  //tracks if placing ships, playing, or switching between the two
   playPhase: null,
+  //Used for putting appropriate css on squares during placement
   hoverSquare: null,
   turnComplete: false,
   playerTurn: 0,
   currentBoard: "p1Board",
   opponentBoard: "p2Board",
+  //index used for the shipLengths object
   selectedShip: 0,
   //for orientation 0 = north 1 = east 2 south 3 west
   shipOrientation: 1,
@@ -14,41 +18,13 @@ state = {
     hitSquares: [],
     //squares that p1 has missed on p2's board
     missSquares: [],
-    ships: {}  //{'destroyer': [[1,1],[1,2]], 'battleship': [[5,3],[5,4],[5,5],[5,6]]}
+    ships: {}
   },
   p2Board: {
     hitSquares: [],
     missSquares: [],
-    ships: {}   //{'destroyer': [[5,1],[5,2]], 'battleship': [[3,3],[4,3],[5,3],[6,3]]}
+    ships: {}
   }
-}
-
-
-
-const endGame = () => {
-  const gameEndHTML = `<div id="gameEndForm">
-                          <form action="register" method="POST">
-                          <h2>Score: </h2> <input type="radio" name="score" value=${state.turns} checked>
-                          <input type="text" placeholder="username" name="username">
-                          <button type='submit'>Submit</button>
-                          </form>
-                        </div>`
-  $('main').append(gameEndHTML);
-}
-
-const setGameMenu = () => {
-  $('#start-game-btn').on('click', (event) => {
-    clearBoard();
-    resetState();
-    state.opponentType = $('.selected').attr('data-opponent');
-    $('#game-display').css('display', 'flex');
-    state.playPhase = "placePhase";
-    beginPlacementPhase();
-  });
-  $('#human-opponent, #AI-opponent').on('click', () => {
-    $('#human-opponent').toggleClass('selected');
-    $('#AI-opponent').toggleClass('selected');
-  });
 }
 
 $(document).ready(() => {
@@ -58,45 +34,5 @@ $(document).ready(() => {
   });
   setGameMenu();
 });
-
-const handleAITurnEnd = () => {
-  if(state.playPhase === 'transition'){
-    state.selectedShip = 0;
-    placeAIShips();
-    beginPlayPhase();
-    state.playPhase = "gamePlay";
-    updatePlayerBoards();
-  } else if(state.playPhase === "gamePlay"){
-    playAITurn();
-    updatePlayerBoards();
-  }
-}
-
-const handleTurnEnd = () => {
-  if(state.turnComplete){
-    state.turnComplete = false;
-    $('#ships').empty();
-    if(state.opponentType === "AI"){
-      state.turns = state.turns + 1;
-      handleAITurnEnd();
-    } else {
-      if(state.playPhase === "placePhase"){
-        switchPlayers();
-        $('#board-title').text(`Player ${state.playerTurn + 1} place ships`)
-        renderBoard();
-        renderShips(state[state.currentBoard].ships);
-        addPlacementListeners();
-      } else if(state.playPhase === "gamePlay"){
-        changeTurn();
-        renderShips(state[state.currentBoard].ships);
-      } else if(state.playPhase == "transition"){
-        beginPlayPhase();
-        state.playPhase = "gamePlay";
-        changeTurn();
-      }
-      toggleModal(`${state.playerTurn + 1}'s turn`, true);
-    }
-  }
-}
 
 
